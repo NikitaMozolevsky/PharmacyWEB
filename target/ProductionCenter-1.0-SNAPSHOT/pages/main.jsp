@@ -11,6 +11,9 @@
     <title>Main</title>
 </head>
 <body>
+<hr/>
+e-mail ${mail}
+<hr/>
 Hello (forward) = ${user}
 <hr/>
 Hi (redirect/forward) = ${user_name}

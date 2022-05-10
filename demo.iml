@@ -9,11 +9,11 @@
         <webroots>
           <root url="file://$MODULE_DIR$/../demo/src/main/webapp" relative="/" />
         </webroots>
-        <sourceRoots>
-          <root url="file://$MODULE_DIR$/../demo/src/main/java" />
-          <root url="file://$MODULE_DIR$/../demo/src/main/resources" />
-        </sourceRoots>
       </configuration>
     </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

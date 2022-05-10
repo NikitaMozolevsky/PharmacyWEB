@@ -1,14 +1,18 @@
 package com.example.demo.command;
 
 public class Router {
-    private String page = "index.jsp";
-    private Type type = Type.FORWARD;
 
-    enum Type{
-        FORWARD, REDIRECT,
+    public enum RouterType {
+        FORWARD,
+        REDIRECT,
     }
 
-    public Router(String page, Type type) {
+    private String page = PagePath.INDEX;
+    private RouterType type = RouterType.FORWARD;
+
+    public Router() {}
+
+    public Router(String page, RouterType type) {
         this.page = page;
         this.type = type;
     }
@@ -17,11 +21,19 @@ public class Router {
         return page;
     }
 
+    public RouterType getCurrentRouterType() {
+        return type;
+    }
+
+    public void setRouterTypeRedirect() {
+        type = RouterType.REDIRECT;
+    }
+
     public void setPage(String page) {
         this.page = page;
     }
 
-    public void setRedirect(Type type) {
-        this.type = Type.REDIRECT;
+    public void setRedirect(RouterType type) {
+        this.type = RouterType.REDIRECT;
     }
 }

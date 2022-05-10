@@ -20,5 +20,9 @@
     <br/>
     ${filter_attr}
 </form>
+<form action="controller">
+    <input type="hidden" name="command" value="register"/>
+    <input type="submit" name="sub" value = "Register">
+</form>
 </body>
 </html>

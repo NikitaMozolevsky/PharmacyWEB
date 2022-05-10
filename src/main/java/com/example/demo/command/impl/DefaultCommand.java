@@ -1,14 +1,20 @@
 package com.example.demo.command.impl;
 
 import com.example.demo.command.Command;
+import com.example.demo.command.Router;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import static com.example.demo.command.Attributes.INDEX;
 
 public class DefaultCommand implements Command {
 
-    private static final String INDEX_PAGE = "index.jsp";
+    static Logger logger = LogManager.getLogger();
 
     @Override
-    public String execute(HttpServletRequest request) {
-        return INDEX_PAGE;
+    public Router execute(HttpServletRequest request) {
+        Router router = new Router();
+        return router; //for example
     }
 }

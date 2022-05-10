@@ -1,5 +1,6 @@
 package com.example.demo.pool;
 
+import com.example.demo.exception.ConnectionException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,10 +24,10 @@ public class ConnectionPool {
     private static final ReentrantLock reentrantLock = new ReentrantLock();
     private static final AtomicBoolean isCreate = new AtomicBoolean(false);
     private static final int CONNECTION_CAPACITY = 8;
-    public static final String DB_HOST = "db.host";
+    public static final String URL = "url";
     public static final String DATABASE_PROPERTIES = "database.properties";
-    private BlockingQueue<Connection> connections = new LinkedBlockingQueue<>(CONNECTION_CAPACITY);
-    private BlockingQueue<Connection> used = new LinkedBlockingQueue<>(CONNECTION_CAPACITY);
+    private BlockingQueue<ProxyConnection> freeConnections = new LinkedBlockingQueue<>(CONNECTION_CAPACITY);
+    private BlockingQueue<ProxyConnection> usedConnections = new LinkedBlockingQueue<>(CONNECTION_CAPACITY);
     Driver driver;
 
     //try (InputStream inputStream = ConnectionPool.class.getClassLoader()
@@ -36,23 +37,26 @@ public class ConnectionPool {
     // information read from there, from file
 
     private ConnectionPool() {
-        try {
-            driver = new com.mysql.cj.jdbc.Driver();
-        } catch (SQLException e) {
-            throw new ExceptionInInitializerError(e);
-        }
-        Properties prop = new Properties();
+        Properties prop = PropertyWriter.getInstance().writeProperty();
         try (InputStream inputStream = ConnectionPool.class.getClassLoader()
                 .getResourceAsStream(DATABASE_PROPERTIES)) {
             prop.load(inputStream);
         } catch (IOException e) {
             logger.log(Level.ERROR, e);
         }
-        String url = prop.getProperty(DB_HOST);
+        /*String driverClassName = prop.getProperty("db.driver", "com.mysql.cj.jdbc.Driver");*/
+        try {
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "driver can't register");
+        }
+        /*driver = new com.mysql.cj.jdbc.Driver();*/
+        /*String url = prop.getProperty(DB_HOST);*/
         for (int i = 0; i < CONNECTION_CAPACITY; i++) {
             try {
-                Connection connection = DriverManager.getConnection(url, prop);
-                connections.add(connection);
+                Connection connection = DriverManager.getConnection(prop.getProperty(URL), prop);
+                ProxyConnection proxyConnection = new ProxyConnection(connection);
+                freeConnections.add(proxyConnection);
             } catch (SQLException e) {
                 throw new ExceptionInInitializerError(e.getMessage());
             }
@@ -74,10 +78,10 @@ public class ConnectionPool {
     }
 
     public Connection getConnection() { // TODO: 18.04.2022 Proxy connection
-        Connection connection = null;
+        ProxyConnection connection = null;
         try {
-            connection = connections.take();
-            used.put(connection);
+            connection = freeConnections.take();
+            usedConnections.put(connection);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -85,29 +89,42 @@ public class ConnectionPool {
     }
 
     public void releaseConnection(Connection connection) {
+        if (connection.getClass() != ProxyConnection.class) {
+            try {
+                logger.log(Level.ERROR, "ConnectionException");
+                throw new ConnectionException();
+            } catch (ConnectionException e) {
+                logger.log(Level.ERROR, e);
+            }
+        }
+        // TODO: 21.04.2022 check it is Proxy Connection
+        usedConnections.remove((ProxyConnection) connection);
         try {
-            used.remove(connection);
-            connections.put(connection);
+            freeConnections.put((ProxyConnection) connection);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            logger.log(Level.ERROR, "put connection to freeConnection is failed");
         }
     }
 
     public void destroyPool() {
         for (int i = 0; i < CONNECTION_CAPACITY; i++) {
             try {
-                connections.take().close();
-            } catch (SQLException | InterruptedException e) {
+                freeConnections.take().reallyClose();
+            } catch (InterruptedException e) {
                 logger.log(Level.ERROR, e); // TODO: 12.04.2022  logger
             }
         }
     }
 
     public void deregisterDriver() {
-        try {
-            DriverManager.deregisterDriver(driver);
-        } catch (SQLException e) {
-            throw new ExceptionInInitializerError(e.getMessage());
-        }
+        DriverManager.getDrivers().asIterator().forEachRemaining(driver1 -> {
+            try {
+                DriverManager.deregisterDriver(driver);
+            } catch (SQLException e) {
+                logger.log(Level.ERROR, "deregister driver exception");
+            }
+        });
+
     } // TODO: 18.04.2022 add DeregisterDriver
 }

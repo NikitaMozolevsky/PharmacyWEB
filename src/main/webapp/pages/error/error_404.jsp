@@ -11,14 +11,12 @@
     <title>404</title>
 </head>
 <body>
-<% if(response.getStatus() == 404){ %>
-<font color="red">Error: <%=exception.getMessage() %></font><br>
-
-<%-- include login page --%>
-<%@ include file="/index.jsp"%>
-<%}else {%>
-Hi There, error code is <%=response.getStatus() %><br>
-Please go to <a href="/index.jsp">home page</a>
-<%} %>
+Request from: ${pageContext.errorData.requestURI} is failed <br/>
+Servlet name: ${pageContext.errorData.servletName} <br/>
+Status code: ${pageContext.errorData.statusCode} <br/>
+Exception: ${pageContext.exception} <br/>
+Exception: ${pageContext.exception.message} <br/>
+<br/><br/><br/>
+Message from exception: ${error_msg}
 </body>
 </html>
