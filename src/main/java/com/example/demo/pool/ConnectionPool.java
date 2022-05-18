@@ -65,6 +65,7 @@ public class ConnectionPool {
 
     public static ConnectionPool getInstance() {
         if (!isCreate.get()) {
+            // TODO: 5/11/2022 check null 
             reentrantLock.lock();
             connectionPool = new ConnectionPool();
             isCreate.set(true);

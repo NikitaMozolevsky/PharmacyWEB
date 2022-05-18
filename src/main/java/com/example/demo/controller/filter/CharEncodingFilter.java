@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-import static com.example.demo.command.Attributes.TEXT_HTML;
-import static com.example.demo.command.Attributes.UTF_8;
+import static com.example.demo.command.DefaultAttributes.TEXT_HTML;
+import static com.example.demo.command.DefaultAttributes.UTF_8;
 
 @WebFilter(filterName = "CharEncodingFilter", urlPatterns = "/controller")
 public class CharEncodingFilter implements Filter {
@@ -27,7 +27,7 @@ public class CharEncodingFilter implements Filter {
         response.setContentType(TEXT_HTML);
         request.setCharacterEncoding(UTF_8);
         HttpSession session = servletRequest.getSession();
-        logger.log(Level.INFO, "--------> Session in CharEncodingFilter <--------" + (session != null ? session.getId():"session not created"));
+        logger.log(Level.INFO, "--------> Session in CharEncodingFilter <--------" + (session != null ? session.getId() : "session not created"));
         chain.doFilter(request, response);
     }
 

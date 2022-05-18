@@ -12,7 +12,9 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.example.demo.command.Attributes.*;
+import static com.example.demo.command.DefaultAttributes.LOGIN_MSG;
+import static com.example.demo.command.PagePath.INDEX;
+import static com.example.demo.command.UserAttributes.*;
 
 public class LoginCommand implements Command {
 
@@ -23,14 +25,15 @@ public class LoginCommand implements Command {
 
         Router router = new Router();
         String login = request.getParameter(LOGIN); // TODO: 18.04.2022 add to separate class 2 scr.
-        String password = request.getParameter(PASS);
+        String password = request.getParameter(PASSWORD);
         UserService userService = UserServiceImpl.getInstance();
         /*String page;*/
         HttpSession session = request.getSession();
         try {
             if (userService.authenticate(login, password)) {
                 request.setAttribute(USER, login);
-                session.setAttribute(USER_NAME, login );
+                session.setAttribute(USER_NAME, login);
+                session.setAttribute(PASSWORD, password);
                 router.setPage(PagePath.MAIN);
                 /*page = PAGES_MAIN_JSP;*/
             } else {

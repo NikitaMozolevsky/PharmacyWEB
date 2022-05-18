@@ -5,7 +5,6 @@ public interface UserValidator {
     boolean passwordCorrect(String password);
     boolean emailCorrect(String email);
     boolean phoneCorrect(String phone);
-    boolean emailAddress(String address);
     boolean userNameCorrect(String userName);
 
 }

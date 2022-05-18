@@ -6,8 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.example.demo.command.Attributes.INDEX;
-
 public class DefaultCommand implements Command {
 
     static Logger logger = LogManager.getLogger();

@@ -1,9 +1,6 @@
 package com.example.demo.command;
 
-import com.example.demo.command.impl.RegistrationCommand;
-import com.example.demo.command.impl.DefaultCommand;
-import com.example.demo.command.impl.LoginCommand;
-import com.example.demo.command.impl.LogoutCommand;
+import com.example.demo.command.impl.*;
 import com.example.demo.exception.CommandException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +10,8 @@ public enum CommandType { // TODO: 01.04.2022 Проверить commandStr, е�
     REGISTER(new RegistrationCommand()),
     LOGIN(new LoginCommand()),
     LOGOUT(new LogoutCommand()),
-    DEFAULT(new DefaultCommand());
+    DEFAULT(new DefaultCommand()),
+    REGISTER_PAGE(new RegistrationPageCommand());
 
     static Logger logger = LogManager.getLogger();
     Command command;

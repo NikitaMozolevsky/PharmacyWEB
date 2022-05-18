@@ -12,6 +12,10 @@ public class Router {
 
     public Router() {}
 
+    public Router(String page) {
+        this.page = page;
+    }
+
     public Router(String page, RouterType type) {
         this.page = page;
         this.type = type;
