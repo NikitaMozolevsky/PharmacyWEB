@@ -1,5 +1,7 @@
 package com.example.demo.command;
 
+import com.example.demo.command.constant.PagePath;
+
 public class Router {
 
     public enum RouterType {

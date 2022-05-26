@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-import static com.example.demo.command.DefaultAttributes.TEXT_HTML;
-import static com.example.demo.command.DefaultAttributes.UTF_8;
+import static com.example.demo.command.constant.DefaultAttribute.TEXT_HTML;
+import static com.example.demo.command.constant.DefaultAttribute.UTF_8;
 
 @WebFilter(filterName = "CharEncodingFilter", urlPatterns = "/controller")
 public class CharEncodingFilter implements Filter {

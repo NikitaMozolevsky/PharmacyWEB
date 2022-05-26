@@ -82,6 +82,14 @@ public class User extends AbstractEntity {
         this.moneyAmount = moneyAmount;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

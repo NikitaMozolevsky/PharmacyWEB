@@ -12,11 +12,9 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
-import static com.example.demo.command.UserAttributes.*;
+import static com.example.demo.command.constant.UserAttribute.*;
 
 public class UserServiceImpl implements UserService {
     //validators here
@@ -52,14 +50,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean register(Map<String, String> userData) throws ServiceException {
         User user = new User();
-        String hashPassword;
-        user.setUserId(100);//for example
+        String hashPassword;//for example
         user.setUserName(userData.get(USER_NAME)); // TODO: 5/17/2022 добавить Имя Фамилию ?
         user.setLogin(userData.get(LOGIN));
+        /*user.setPassword(userData.get(PasswordEncryptor.passwordEncryption(userData.get(PASSWORD))));*/
         user.setEmail(userData.get(EMAIL));
         user.setPhone(userData.get(PHONE));
         user.setAccessLevel(AccessLevel.valueOf("CLIENT"));//for example
-        user.setMoneyAmount(1000.00);//for example
+        user.setMoneyAmount(0.00);//for example
 
         hashPassword = PasswordEncryptor.passwordEncryption(userData.get(PASSWORD));
 
@@ -72,6 +70,30 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    @Override
+    public boolean addUser(Map<String, String> userData) throws ServiceException {
+        User user = new User();
+        String hashPassword;//for example
+        user.setUserName(userData.get(USER_NAME)); // TODO: 5/17/2022 добавить Имя Фамилию ?
+        user.setLogin(userData.get(LOGIN));
+        user.setEmail(userData.get(EMAIL));
+        user.setPhone(userData.get(PHONE));
+        user.setAccessLevel(AccessLevel.valueOf(userData.get(ACCESS_LEVEL)));//for example
+        user.setMoneyAmount(0.00);//for example
+
+        hashPassword = PasswordEncryptor.passwordEncryption(userData.get(PASSWORD));
+
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
+        try {
+            userDao.registerDao(user, hashPassword);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "exception adding a service product", e);
+            throw new ServiceException(e);
+        }
+        return true;
+    }
+
+    @Override
     public boolean validateUserData(Map<String, String> userData) throws ServiceException {
         UserValidatorImpl userValidator = UserValidatorImpl.getInstance();
         boolean isCorrect = true;
@@ -106,8 +128,24 @@ public class UserServiceImpl implements UserService {
                 }
             }
         }
+        if (!isCorrect) {
+            logger.log(Level.ERROR, "incorrect user parameters");
+        }
         return isCorrect;
-    }
+}
+
+    /*public Router checkUserAccessLevel(AccessLevel accessLevel) {
+        Router router = new Router();
+        switch (accessLevel) {
+            case CLIENT -> router.setPage(PagePath.CLIENT_PAGE);
+        }
+        switch (accessLevel) {
+            case DOCTOR -> router.setPage(PagePath.DOCTOR_PAGE);
+        }
+        return router;
+    }*/
+
+
 
     /*@Override
     public boolean validateUserData(Map<String, String> dataMap) {
