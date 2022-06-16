@@ -4,6 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="pages/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel = "shortcut icon" href="https://atom.io/favicon.ico"/>
     <title>JSP - Hello World</title>
 </head>
 <body>
@@ -16,12 +17,12 @@
 </div>
 <br/>
 <form action="controller">
-    <%--<input type="hidden" name="command" value="login"/>
+    <input type="hidden" name="command" value="login"/>
     Login: <input type="text" name="login" value=""/>
     <br/>
     Password: <input type="password" name="password" value="">
     <br/>
-    <input type="submit" name="sub" value="Push"/>
+    <input type="submit" name="sub" value="LogIn"/>
     <br/>
     ${login_msg.toUpperCase()}
     <br/>
@@ -32,7 +33,7 @@
 <form action="controller">
     <input type="hidden" name="command" value="register_page"/>
     <input type="submit" name="sub" value = "Register">
-</form>--%>
+</form>
         <script src="pages/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>

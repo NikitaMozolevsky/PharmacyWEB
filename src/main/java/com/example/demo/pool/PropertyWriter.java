@@ -36,7 +36,7 @@ public class PropertyWriter {
             prop.setProperty("useLegacyDatetimeCode", "true");
             prop.setProperty("serverTimezone", "UTC");
             prop.setProperty("serverSslCert", "classpath:server.crt");
-            prop.setProperty("url","jdbc:mysql://localhost:3306/mydb");
+            prop.setProperty("url","jdbc:mysql://localhost:3306/pharmacy");
             prop.store(new FileWriter(file.getAbsolutePath()), null);
         } catch (IOException e) {
             logger.log(Level.ERROR, "Failed to write data base properties file.", e);

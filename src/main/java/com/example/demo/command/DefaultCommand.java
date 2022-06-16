@@ -1,4 +1,4 @@
-package com.example.demo.command.impl;
+package com.example.demo.command;
 
 import com.example.demo.command.Command;
 import com.example.demo.command.Router;

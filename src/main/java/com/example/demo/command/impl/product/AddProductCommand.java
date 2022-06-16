@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.example.demo.command.constant.PagePath.INDEX;
+import static com.example.demo.command.constant.PagePath.SHOW_PRODUCTS;
 import static com.example.demo.command.constant.ProductAttribute.*;
 
 public class AddProductCommand implements Command {
@@ -29,14 +30,14 @@ public class AddProductCommand implements Command {
         newProductData.put(DETAILS, request.getParameter(DETAILS));
         newProductData.put(PRICE, request.getParameter(PRICE));
         newProductData.put(TYPE, request.getParameter(TYPE));
-        newProductData.put(VOLUME, request.getParameter(VOLUME));
+        /*newProductData.put(VOLUME, request.getParameter(VOLUME));*/
         newProductData.put(PHOTO, request.getParameter(PHOTO));
 
         //if (userService.validateUserData(userDataMap)) {
         productService.addProduct(newProductData);
         //}
         logger.log(Level.INFO, "product was added successful");
-        router.setPage(INDEX);
+        router.setPage(SHOW_PRODUCTS);
         return router;
     }
 }

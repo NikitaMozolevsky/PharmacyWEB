@@ -7,6 +7,7 @@ import com.example.demo.exception.CommandException;
 import com.example.demo.exception.ServiceException;
 import com.example.demo.service.UserService;
 import com.example.demo.service.impl.UserServiceImpl;
+import com.example.demo.util.PasswordEncryptor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
@@ -26,14 +27,18 @@ public class LoginCommand implements Command {
         Router router = new Router();
         String login = request.getParameter(LOGIN); // TODO: 18.04.2022 add to separate class 2 scr.
         String password = request.getParameter(PASSWORD);
+        password = PasswordEncryptor.passwordEncryption(password);
+        String userName = request.getParameter(USER_NAME);
         String accessLevel = request.getParameter(ACCESS_LEVEL);
+        String userId = request.getParameter(USER_ID);
         UserService userService = UserServiceImpl.getInstance();
         /*String page;*/
         HttpSession session = request.getSession();
         try {
             if (userService.authenticate(login, password)) {
-                request.setAttribute(USER, login);
-                session.setAttribute(USER_NAME, login);
+                session.setAttribute(LOGIN, login);
+                session.setAttribute(USER_NAME, userName);
+                session.setAttribute(USER_ID, userId);
                 session.setAttribute(PASSWORD, password);
                 session.setAttribute(ACCESS_LEVEL, accessLevel);
                 //access level access

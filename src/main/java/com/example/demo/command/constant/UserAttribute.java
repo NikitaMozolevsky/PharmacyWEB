@@ -15,5 +15,6 @@ public enum UserAttribute {
     public static final String DOCTOR = "DOCTOR";
     public static final String ADMIN = "ADMIN";
     public static final String PHARMACIST = "PHARMACIST";
+    public static final Double INITIAL_MONEY_AMOUNT = 0.00;
 
 }

@@ -36,7 +36,7 @@ public class AddUserCommand implements Command {
 
         try {
             //if (userService.validateUserData(userDataMap)) {
-            userService.register(userDataBeingAddedMap);
+            userService.addUser(userDataBeingAddedMap);
             //}
             logger.log(Level.INFO, "user was registered successful");
             router.setPage(INDEX);

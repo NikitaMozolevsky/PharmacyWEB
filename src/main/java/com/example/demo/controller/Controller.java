@@ -4,6 +4,7 @@ import com.example.demo.command.Command;
 import com.example.demo.command.CommandType;
 import com.example.demo.command.Router;
 import com.example.demo.exception.CommandException;
+import com.example.demo.exception.DaoException;
 import com.example.demo.pool.ConnectionPool;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -68,6 +69,9 @@ public class Controller extends HttpServlet {
         catch (CommandException e) {
             logger.log(Level.ERROR, "incorrect command");
             response.sendError(500);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "DaoException, perhaps in showAllUsers findAll()");
+            response.sendError(500);
         }
     }
 
@@ -75,4 +79,18 @@ public class Controller extends HttpServlet {
         ConnectionPool.getInstance().destroyPool();
         logger.log(Level.INFO, "--------> ServletDestroyed <--------" + this.getServletName());
     }
+
+    //#Wed Jun 01 16:02:29 MSK 2022
+    //useJDBCCompliantTimezoneShift=true
+    //useLegacyDatetimeCode=true
+    //autoReconnect=true
+    //url=jdbc\:mysql\://localhost\:3306/mydb
+    //useSSL=true
+    //password=1111
+    //serverSslCert=classpath\:server.crt
+    //useUnicode=true
+    //driver=com.mysql.cj.jdbc.Driver
+    //serverTimezone=UTC
+    //characterEncoding=UTF-8
+    //user=root
 }

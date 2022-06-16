@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
         /*user.setPassword(userData.get(PasswordEncryptor.passwordEncryption(userData.get(PASSWORD))));*/
         user.setEmail(userData.get(EMAIL));
         user.setPhone(userData.get(PHONE));
-        user.setAccessLevel(AccessLevel.valueOf("CLIENT"));//for example
-        user.setMoneyAmount(0.00);//for example
+        user.setAccessLevel(AccessLevel.valueOf(CLIENT));//for example
+        user.setMoneyAmount(INITIAL_MONEY_AMOUNT);//for example
 
         hashPassword = PasswordEncryptor.passwordEncryption(userData.get(PASSWORD));
 

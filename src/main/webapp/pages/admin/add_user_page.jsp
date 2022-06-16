@@ -34,13 +34,13 @@
     <hr/>
     Access level:
     <label>
-        <input type="checkbox" name="CLIENT" checked="on">
+        <input type="radio" name="access_level" value="CLIENT" checked="on">
     </label>CLIENT<br/>
     <label>
-        <input type="checkbox" name="PHARMACIST">
+        <input type="radio" name="access_level" value="PHARMACIST">
     </label>PHARMACIST<br/>
     <label>
-        <input type="checkbox" name="DOCTOR">
+        <input type="radio" name="access_level" value="DOCTOR">
     </label>DOCTOR<br/>
     <input type="hidden" name="command" value="add_user">
     <input type="submit" value="Add user">

@@ -1,15 +1,11 @@
 package com.example.demo.command;
 
-import com.example.demo.command.impl.*;
-import com.example.demo.command.impl.product.AddProductCommand;
-import com.example.demo.command.impl.product.ShowProductList;
-import com.example.demo.command.impl.user.AddUserCommand;
-import com.example.demo.command.impl.user.LoginCommand;
-import com.example.demo.command.impl.user.LogoutCommand;
-import com.example.demo.command.impl.user.RegistrationCommand;
-import com.example.demo.command.intermediate.AddProductPageCommand;
-import com.example.demo.command.intermediate.AddUserPageCommand;
-import com.example.demo.command.intermediate.RegistrationPageCommand;
+import com.example.demo.command.impl.order.AddProductToCartCommand;
+import com.example.demo.command.impl.order.BuyProductCommand;
+import com.example.demo.command.impl.order.ChooseProductCommand;
+import com.example.demo.command.impl.order.CreateOrderCommand;
+import com.example.demo.command.impl.product.*;
+import com.example.demo.command.impl.user.*;
 import com.example.demo.exception.CommandException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -25,8 +21,13 @@ public enum CommandType { // TODO: 01.04.2022 Проверить commandStr, е�
     REGISTER_PAGE(new RegistrationPageCommand()),
     ADD_USER_PAGE(new AddUserPageCommand()),
     ADD_PRODUCT_PAGE(new AddProductPageCommand()),
-    SHOW_ALL_USERS(new AddProductPageCommand()),
-    SHOW_ALL_PRODUCTS(new ShowProductList());
+    SHOW_ALL_USERS(new ShowUserList()),
+    SHOW_ALL_PRODUCTS(new ShowProductList()),
+    ADD_TO_CART(new AddProductToCartCommand()),
+    CREATE_ORDER(new CreateOrderCommand()),
+    CHOOSE_PRODUCT(new ChooseProductCommand()),
+    BUY_PRODUCT(new BuyProductCommand());
+
 
     static Logger logger = LogManager.getLogger();
     Command command;

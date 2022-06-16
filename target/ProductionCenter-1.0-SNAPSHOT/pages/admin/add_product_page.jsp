@@ -24,13 +24,21 @@
     <input type="text" name="price" value="">
 </label>
     <hr/>
-    Type: <label>
-    <input type="text" name="type" value="">
-</label>
+    Type:
+    <br>
+    <label>
+    <input type="radio" name="type" value="ENTERAL" checked="on">
+</label>ENTERAL
+    <br>
+    <label>
+    <input type="radio" name="type" value="EXTERNAL">
+    </label>EXTERNAL
+    <br>
+    <label>
+    <input type="radio" name="type" value="INHALATION">
+    </label>INHALATION
+    <br>
     <hr/>
-    Volume: <label>
-    <input type="text" name="volume" value="">
-</label>
     Photo: <label>
     <input type="text" name="photo" value="">
 </label>

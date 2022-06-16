@@ -12,7 +12,13 @@ public class Example {
          logger.log(Level.INFO, "qwertyu");
     }
 
-
+    public class Example1 {
+        public static void main(String[] args) {
+            new Thread(
+                    () -> System.out.println("hello world")
+            ).start();
+        }
+    }
 
     @Override
     public boolean equals(Object o) {

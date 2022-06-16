@@ -7,11 +7,11 @@ public class Product extends AbstractEntity {
     private String details;
     private double price;
     private DrugType type;
-    private double volume;
+    private String volume;
     private String photo;
 
     public Product(int productId, String productName, String details, double price,
-                   DrugType type, double volume, String photo) {
+                   DrugType type, String volume, String photo) {
         this.productId = productId;
         this.productName = productName;
         this.details = details;
@@ -19,6 +19,11 @@ public class Product extends AbstractEntity {
         this.type = type;
         this.volume = volume;
         this.photo = photo;
+    }
+
+    public Product(int productId, String productName) {
+        this.productId = productId;
+        this.productName = productName;
     }
 
     public Product() {}
@@ -63,11 +68,11 @@ public class Product extends AbstractEntity {
         this.type = type;
     }
 
-    public double getVolume() {
+    public String getVolume() {
         return volume;
     }
 
-    public void setVolume(double volume) {
+    public void setVolume(String volume) {
         this.volume = volume;
     }
 
@@ -88,10 +93,10 @@ public class Product extends AbstractEntity {
 
         if (productId != product.productId) return false;
         if (Double.compare(product.price, price) != 0) return false;
-        if (Double.compare(product.volume, volume) != 0) return false;
         if (productName != null ? !productName.equals(product.productName) : product.productName != null) return false;
         if (details != null ? !details.equals(product.details) : product.details != null) return false;
         if (type != product.type) return false;
+        if (volume != null ? !volume.equals(product.volume) : product.volume != null) return false;
         return photo != null ? photo.equals(product.photo) : product.photo == null;
     }
 
@@ -105,8 +110,7 @@ public class Product extends AbstractEntity {
         temp = Double.doubleToLongBits(price);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (type != null ? type.hashCode() : 0);
-        temp = Double.doubleToLongBits(volume);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (volume != null ? volume.hashCode() : 0);
         result = 31 * result + (photo != null ? photo.hashCode() : 0);
         return result;
     }

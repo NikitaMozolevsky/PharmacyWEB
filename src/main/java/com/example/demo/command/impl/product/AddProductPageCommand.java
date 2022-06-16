@@ -1,4 +1,4 @@
-package com.example.demo.command.intermediate;
+package com.example.demo.command.impl.product;
 
 import com.example.demo.command.Command;
 import com.example.demo.command.constant.PagePath;
