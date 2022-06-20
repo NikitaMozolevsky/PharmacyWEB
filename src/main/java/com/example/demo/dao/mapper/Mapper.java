@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface Mapper <T extends AbstractEntity> {
     Logger logger = LogManager.getLogger();
 
-    Optional<T> map(ResultSet resultSet);
+    Optional<T> mapEntity(ResultSet resultSet);
 
 }

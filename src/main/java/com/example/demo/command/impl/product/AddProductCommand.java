@@ -12,8 +12,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.demo.command.constant.PagePath.INDEX;
-import static com.example.demo.command.constant.PagePath.SHOW_PRODUCTS;
 import static com.example.demo.command.constant.ProductAttribute.*;
 
 public class AddProductCommand implements Command {
@@ -37,7 +35,8 @@ public class AddProductCommand implements Command {
         productService.addProduct(newProductData);
         //}
         logger.log(Level.INFO, "product was added successful");
-        router.setPage(SHOW_PRODUCTS);
+        router = new ShowProductListCommand().execute(request);
+        /*router.setPage(SHOW_PRODUCTS);*/
         return router;
     }
 }

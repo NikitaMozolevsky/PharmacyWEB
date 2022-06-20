@@ -2,12 +2,9 @@ package com.example.demo.dao.impl;
 
 import com.example.demo.dao.BaseDao;
 import com.example.demo.dao.UserDao;
-import com.example.demo.dao.mapper.Mapper;
 import com.example.demo.dao.mapper.impl.UserMapper;
-import com.example.demo.entity.AccessLevel;
-import com.example.demo.entity.DrugType;
-import com.example.demo.entity.Product;
-import com.example.demo.entity.User;
+import com.example.demo.entity.user.AccessLevel;
+import com.example.demo.entity.user.User;
 import com.example.demo.exception.DaoException;
 import com.example.demo.pool.ConnectionPool;
 import org.apache.logging.log4j.Level;
@@ -20,9 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-import static com.example.demo.command.constant.ProductAttribute.*;
 import static com.example.demo.command.constant.UserAttribute.*;
-import static com.example.demo.dao.DaoRequest.*;
+import static com.example.demo.dao.request.UserDaoRequest.*;
 
 public class UserDaoImpl extends BaseDao<User> implements UserDao {
 
@@ -84,23 +80,27 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
     }
 
     @Override
-    public boolean authenticateDao(String login, String password) throws DaoException {
+    public Optional<User> authenticateDao(String login, String password) throws DaoException {
+        Optional<User> optionalUser = Optional.empty();
         boolean match = false;
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(SELECT_LOGIN_PASSWORD)) {
-            statement.setString(1, login);
-            try (ResultSet resultSet = statement.executeQuery()) { // TODO: 18.04.2022 implement try-with-resources for resultSet
-                String passFromDB;
+             PreparedStatement authenticateStatement = connection.prepareStatement(SELECT_USER_BY_LOGIN_AND_PASSWORD)) {
+            authenticateStatement.setString(1, login);
+            authenticateStatement.setString(2, password);
+            try (ResultSet resultSet = authenticateStatement.executeQuery()) { // TODO: 18.04.2022 implement try-with-resources for resultSet
+                /*String passFromDB;
+                passFromDB = resultSet.getString(PASSWORD);*/
                 if (resultSet.next()) {
-                    passFromDB = resultSet.getString(PASSWORD);
-                    match = password.equals(passFromDB);
+                    optionalUser = UserMapper.getInstance().mapEntity(resultSet);
+                    logger.log(Level.INFO, "user was found by login {} and hash password {}", login, password);
+                    /*match = password.equals(passFromDB);*/
                 }
             }
         } catch (SQLException e) {
             logger.log(Level.ERROR, "authenticate error", e);
             throw new DaoException("authenticate error", e);
         }
-        return match;
+        return optionalUser;
     }
 
     public boolean registerDao(User user, String hashPassword) throws DaoException {

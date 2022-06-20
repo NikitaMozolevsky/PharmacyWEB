@@ -1,8 +1,8 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.impl.UserDaoImpl;
-import com.example.demo.entity.AccessLevel;
-import com.example.demo.entity.User;
+import com.example.demo.entity.user.AccessLevel;
+import com.example.demo.entity.user.User;
 import com.example.demo.exception.DaoException;
 import com.example.demo.exception.ServiceException;
 import com.example.demo.service.UserService;
@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
+import java.util.Optional;
 
 import static com.example.demo.command.constant.UserAttribute.*;
 
@@ -28,7 +29,7 @@ public class UserServiceImpl implements UserService {
         return userService;
     }
     @Override
-    public boolean authenticate(String login, String password) throws ServiceException {
+    public Optional<User> authenticate(String login, String password) throws ServiceException {
         boolean loginIsCorrect = UserValidatorImpl.getInstance().loginCorrect(login);
         boolean passwordIsCorrect = UserValidatorImpl.getInstance().passwordCorrect(password);
         // TODO: 18.04.2022 validate login, pass + шифрование (md5)
@@ -39,12 +40,11 @@ public class UserServiceImpl implements UserService {
         UserDaoImpl userDao = UserDaoImpl.getInstance();
         boolean match;
         try {
-            match = userDao.authenticateDao(login, password);
+            return userDao.authenticateDao(login, password);
         } catch (DaoException e) {
             logger.log(Level.ERROR, "user or login don't match in DB", e);
             throw new ServiceException(e);
         }
-        return match;
     }
 
     @Override

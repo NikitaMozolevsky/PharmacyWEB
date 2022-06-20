@@ -5,6 +5,7 @@ import com.example.demo.command.CommandType;
 import com.example.demo.command.Router;
 import com.example.demo.exception.CommandException;
 import com.example.demo.exception.DaoException;
+import com.example.demo.exception.ServiceException;
 import com.example.demo.pool.ConnectionPool;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -56,21 +57,14 @@ public class Controller extends HttpServlet {
                     response.sendRedirect(router.getPage());
                 }
             }
-            /*String mail = this.getServletContext().getInitParameter("mail");
-            request.setAttribute("e-mail", mail);*/
-            /*try {
-                //response.sendRedirect(request.getContextPath() + "../" + page);
-            } catch (CommandException e) {
-                *//*response.sendError(500);*//*
-                throw new ServletException(e);
-                // TODO: 12.04.2022 return to index.jsp
-            }*/
         }
         catch (CommandException e) {
             logger.log(Level.ERROR, "incorrect command");
             response.sendError(500);
         } catch (DaoException e) {
             logger.log(Level.ERROR, "DaoException, perhaps in showAllUsers findAll()");
+            response.sendError(500);
+        } catch (ServiceException e) {
             response.sendError(500);
         }
     }

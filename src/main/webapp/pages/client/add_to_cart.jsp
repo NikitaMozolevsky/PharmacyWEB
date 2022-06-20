@@ -12,18 +12,18 @@
 </head>
 <body>
 <form action="controller">
-    Quantity: <input type="text" name="quantity" value="">
+    Quantity: <input type="text" name="quantity" value="1">
     <br>
     Dosage:
     <br>
     <label>
-        <input type="radio" name="volume" value="20_ml" checked="on">
+        <input type="radio" name="volume" value="20ML" checked="on">
     </label>20ml<br/>
     <label>
-        <input type="radio" name="volume" value="50_ml">
+        <input type="radio" name="volume" value="50ML">
     </label>50ml<br/>
     <label>
-        <input type="radio" name="volume" value="100_ml">
+        <input type="radio" name="volume" value="100ML">
     </label>100ml<br/>
     <input type="hidden" name="command" value="create_order">
     <input type="submit" value="Add to cart">

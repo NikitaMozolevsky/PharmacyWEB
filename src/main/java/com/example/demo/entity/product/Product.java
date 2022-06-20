@@ -1,4 +1,6 @@
-package com.example.demo.entity;
+package com.example.demo.entity.product;
+
+import com.example.demo.entity.AbstractEntity;
 
 public class Product extends AbstractEntity {
 

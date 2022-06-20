@@ -9,6 +9,6 @@ public enum ProductAttribute {
     public static final String PRICE = "price";
     public static final String TYPE = "type";
     public static final String VOLUME = "volume";
-    public static final String QUANTITY = "QUANTITY";
+    public static final String QUANTITY = "quantity";
     public static final String PHOTO = "photo";
 }

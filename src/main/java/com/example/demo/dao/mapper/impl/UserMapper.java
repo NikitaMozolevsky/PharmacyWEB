@@ -1,8 +1,8 @@
 package com.example.demo.dao.mapper.impl;
 
 import com.example.demo.dao.mapper.Mapper;
-import com.example.demo.entity.AccessLevel;
-import com.example.demo.entity.User;
+import com.example.demo.entity.user.AccessLevel;
+import com.example.demo.entity.user.User;
 import org.apache.logging.log4j.Level;
 
 import java.math.BigDecimal;
@@ -23,8 +23,24 @@ public class UserMapper implements Mapper<User> {
     }
 
     @Override
-    public Optional<User> map(ResultSet resultSet) {
-        return Optional.empty();
+    public Optional<User> mapEntity(ResultSet resultSet) {
+        User user = new User();
+        Optional<User> optionalUser;
+
+        try {
+            user.setUserId(resultSet.getInt(USER_ID));
+            user.setUserName(resultSet.getString(USER_NAME));
+            user.setEmail(resultSet.getString(EMAIL));
+            user.setPhone(resultSet.getString(PHONE));
+            user.setMoneyAmount(Double.parseDouble(resultSet.getString(MONEY_AMOUNT)));
+            /*user.setAccessLevel(AccessLevel.valueOf(resultSet.getString(ACCESS_LEVEL)));*/
+
+            optionalUser = Optional.of(user);
+        } catch (SQLException e) {
+            logger.log(Level.DEBUG,"user wasn't mapped in UserMapper. {}", e.getMessage());
+            optionalUser = Optional.empty();
+        }
+        return optionalUser;
     }
 
 

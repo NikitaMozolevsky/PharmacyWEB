@@ -2,11 +2,10 @@ package com.example.demo.dao.impl;
 
 import com.example.demo.dao.BaseDao;
 import com.example.demo.entity.AbstractEntity;
-import com.example.demo.entity.DrugType;
-import com.example.demo.entity.Product;
+import com.example.demo.entity.product.DrugType;
+import com.example.demo.entity.product.Product;
 import com.example.demo.exception.DaoException;
 import com.example.demo.pool.ConnectionPool;
-import com.example.demo.pool.ProxyConnection;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.demo.command.constant.ProductAttribute.*;
-import static com.example.demo.dao.DaoRequest.ADD_PRODUCT_REQUEST;
-import static com.example.demo.dao.DaoRequest.GET_ALL_PRODUCTS;
+import static com.example.demo.dao.request.ProductDaoRequest.ADD_PRODUCT_REQUEST;
+import static com.example.demo.dao.request.ProductDaoRequest.GET_ALL_PRODUCTS;
 
 public class ProductDaoImpl extends BaseDao {
 
@@ -42,7 +41,6 @@ public class ProductDaoImpl extends BaseDao {
             statement.setString(2, productData.getDetails());
             statement.setString(3, String.valueOf(productData.getPrice()));
             statement.setString(4, String.valueOf(productData.getType()));
-            /*statement.setString(5, String.valueOf(productData.getVolume()));*/
             statement.setString(5, productData.getPhoto());
 
             statement.execute();

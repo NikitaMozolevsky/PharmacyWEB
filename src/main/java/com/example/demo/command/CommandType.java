@@ -1,9 +1,9 @@
 package com.example.demo.command;
 
-import com.example.demo.command.impl.order.AddProductToCartCommand;
+import com.example.demo.command.impl.order.AddOrderProductCommand;
 import com.example.demo.command.impl.order.BuyProductCommand;
 import com.example.demo.command.impl.order.ChooseProductCommand;
-import com.example.demo.command.impl.order.CreateOrderCommand;
+import com.example.demo.command.impl.order.CreateOrderAndOrderProductCommand;
 import com.example.demo.command.impl.product.*;
 import com.example.demo.command.impl.user.*;
 import com.example.demo.exception.CommandException;
@@ -21,10 +21,10 @@ public enum CommandType { // TODO: 01.04.2022 Проверить commandStr, е�
     REGISTER_PAGE(new RegistrationPageCommand()),
     ADD_USER_PAGE(new AddUserPageCommand()),
     ADD_PRODUCT_PAGE(new AddProductPageCommand()),
-    SHOW_ALL_USERS(new ShowUserList()),
-    SHOW_ALL_PRODUCTS(new ShowProductList()),
-    ADD_TO_CART(new AddProductToCartCommand()),
-    CREATE_ORDER(new CreateOrderCommand()),
+    SHOW_ALL_USERS(new ShowUserListCommand()),
+    SHOW_ALL_PRODUCTS(new ShowProductListCommand()),
+    ADD_TO_CART(new AddOrderProductCommand()),
+    CREATE_ORDER(new CreateOrderAndOrderProductCommand()),
     CHOOSE_PRODUCT(new ChooseProductCommand()),
     BUY_PRODUCT(new BuyProductCommand());
 

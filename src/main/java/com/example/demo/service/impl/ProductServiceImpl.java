@@ -1,21 +1,15 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.impl.ProductDaoImpl;
-import com.example.demo.dao.impl.UserDaoImpl;
-import com.example.demo.entity.AccessLevel;
-import com.example.demo.entity.DrugType;
-import com.example.demo.entity.Product;
-import com.example.demo.entity.User;
+import com.example.demo.entity.product.DrugType;
+import com.example.demo.entity.product.Product;
 import com.example.demo.exception.DaoException;
 import com.example.demo.exception.ServiceException;
 import com.example.demo.service.ProductService;
-import com.example.demo.util.PasswordEncryptor;
 
 import java.util.Map;
 
 import static com.example.demo.command.constant.ProductAttribute.*;
-import static com.example.demo.command.constant.UserAttribute.*;
-import static com.example.demo.command.constant.UserAttribute.PASSWORD;
 
 public class ProductServiceImpl implements ProductService {
 

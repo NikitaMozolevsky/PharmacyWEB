@@ -1,4 +1,6 @@
-package com.example.demo.entity;
+package com.example.demo.entity.user;
+
+import com.example.demo.entity.AbstractEntity;
 
 public class User extends AbstractEntity {
 
