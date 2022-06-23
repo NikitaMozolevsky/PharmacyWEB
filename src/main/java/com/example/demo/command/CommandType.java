@@ -23,8 +23,9 @@ public enum CommandType { // TODO: 01.04.2022 Проверить commandStr, е�
     ADD_PRODUCT_PAGE(new AddProductPageCommand()),
     SHOW_ALL_USERS(new ShowUserListCommand()),
     SHOW_ALL_PRODUCTS(new ShowProductListCommand()),
-    ADD_TO_CART(new AddOrderProductCommand()),
+    ADD_ORDER_PRODUCT_TO_CART(new AddOrderProductCommand()),
     CREATE_ORDER(new CreateOrderAndOrderProductCommand()),
+    /*CREATE_ORDER(new AddOrderProductCommand()),*/
     CHOOSE_PRODUCT(new ChooseProductCommand()),
     BUY_PRODUCT(new BuyProductCommand());
 

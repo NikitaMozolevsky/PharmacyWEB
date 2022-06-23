@@ -13,6 +13,7 @@ public class Order extends AbstractEntity {
     private LocalDateTime dateOpen;
     private LocalDateTime dateClose;
     private Double fullCost;
+    private boolean isOrderExist;
 
     public Order(int orderId, int userId, String address,
                  OrderStatus orderStatus, LocalDateTime dateOpen,
@@ -24,6 +25,11 @@ public class Order extends AbstractEntity {
         this.dateOpen = dateOpen;
         this.dateClose = dateClose;
         this.fullCost = fullCost;
+    }
+
+    public Order(int orderId, boolean isOrderExist) {
+        this.orderId = orderId;
+        this.isOrderExist = isOrderExist;
     }
 
     public Order() {}
@@ -84,6 +90,14 @@ public class Order extends AbstractEntity {
         this.fullCost = fullCost;
     }
 
+    public boolean isOrderExist() {
+        return isOrderExist;
+    }
+
+    public void setOrderExist(boolean orderExist) {
+        isOrderExist = orderExist;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,6 +107,7 @@ public class Order extends AbstractEntity {
 
         if (orderId != order.orderId) return false;
         if (userId != order.userId) return false;
+        if (isOrderExist != order.isOrderExist) return false;
         if (address != null ? !address.equals(order.address) : order.address != null) return false;
         if (orderStatus != order.orderStatus) return false;
         if (dateOpen != null ? !dateOpen.equals(order.dateOpen) : order.dateOpen != null) return false;
@@ -109,6 +124,7 @@ public class Order extends AbstractEntity {
         result = 31 * result + (dateOpen != null ? dateOpen.hashCode() : 0);
         result = 31 * result + (dateClose != null ? dateClose.hashCode() : 0);
         result = 31 * result + (fullCost != null ? fullCost.hashCode() : 0);
+        result = 31 * result + (isOrderExist ? 1 : 0);
         return result;
     }
 }

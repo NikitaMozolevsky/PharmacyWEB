@@ -9,6 +9,8 @@ public enum UserDaoRequest {
             "AND" +
             " password = ?";
     public static final String GET_USER_ID = "SELECT user_id FROM users WHERE login = ?";
+    public static final String GET_ORDER_ID_BY_USER_ID = "SELECT order_id FROM orders WHERE user_id = ?";
+    public static final String GET_ORDER_STATUS_BY_USER_ID = "SELECT status FROM orders WHERE user_id = ?";
     public static final String REGISTER_USER = """
             INSERT INTO users(user_name, login, password, email, phone, money_amount)
             VALUES(?,?,?,?,?,?)""";

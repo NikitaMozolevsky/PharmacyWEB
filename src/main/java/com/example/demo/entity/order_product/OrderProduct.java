@@ -8,12 +8,14 @@ public class OrderProduct extends AbstractEntity {
     private int productId;
     private int quantity;
     private String volume;
+    private int userId;
 
-    public OrderProduct(int orderId, int productId, int quantity, String volume) {
+    public OrderProduct(int orderId, int productId, int quantity, String volume, int userId) {
         this.orderId = orderId;
         this.productId = productId;
         this.quantity = quantity;
         this.volume = volume;
+        this.userId = userId;
     }
 
     public OrderProduct() {}
@@ -50,6 +52,14 @@ public class OrderProduct extends AbstractEntity {
         this.volume = volume;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,6 +70,7 @@ public class OrderProduct extends AbstractEntity {
         if (orderId != that.orderId) return false;
         if (productId != that.productId) return false;
         if (quantity != that.quantity) return false;
+        if (userId != that.userId) return false;
         return volume != null ? volume.equals(that.volume) : that.volume == null;
     }
 
@@ -69,6 +80,7 @@ public class OrderProduct extends AbstractEntity {
         result = 31 * result + productId;
         result = 31 * result + quantity;
         result = 31 * result + (volume != null ? volume.hashCode() : 0);
+        result = 31 * result + userId;
         return result;
     }
 }

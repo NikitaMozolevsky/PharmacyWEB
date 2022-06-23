@@ -3,6 +3,7 @@ package com.example.demo.command.impl.user;
 import com.example.demo.command.Command;
 import com.example.demo.command.constant.PagePath;
 import com.example.demo.command.Router;
+import com.example.demo.dao.impl.OrderDaoImpl;
 import com.example.demo.entity.user.User;
 import com.example.demo.exception.CommandException;
 import com.example.demo.exception.ServiceException;
@@ -14,10 +15,12 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Optional;
 
 import static com.example.demo.command.constant.DefaultAttribute.LOGIN_MSG;
+import static com.example.demo.command.constant.OrderAttribute.ORDER_EXIST;
 import static com.example.demo.command.constant.PagePath.INDEX;
 import static com.example.demo.command.constant.UserAttribute.*;
 
@@ -26,7 +29,7 @@ public class LoginCommand implements Command {
     static Logger logger = LogManager.getLogger();
 
     @Override
-    public Router execute(HttpServletRequest request) throws CommandException {
+    public Router execute(HttpServletRequest request) throws CommandException, SQLException {
 
         Router router = new Router();
         Optional<User> optionalUser = Optional.empty();
@@ -34,6 +37,7 @@ public class LoginCommand implements Command {
         String password = request.getParameter(PASSWORD);
         password = PasswordEncryptor.passwordEncryption(password);
         UserService userService = UserServiceImpl.getInstance();
+        OrderDaoImpl orderDao = new OrderDaoImpl();
         /*String page;*/
         HttpSession session = request.getSession();
         try {
@@ -46,6 +50,7 @@ public class LoginCommand implements Command {
                 session.setAttribute(LOGIN, login);
                 session.setAttribute(USER_NAME, userName);
                 session.setAttribute(USER_ID, userId);
+                session.setAttribute(ORDER_EXIST, orderDao.isOrderForUserAlreadyExist(userId));
                 /*session.setAttribute(PASSWORD, password);*/
                 /*session.setAttribute(ACCESS_LEVEL, accessLevel);*/
                 Enumeration<String> s = session.getAttributeNames();//access level access

@@ -30,7 +30,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean addOrderService(Map<String, String> orderInfo) throws ServiceException {
         Order order = new Order();//for example
-        String s = orderInfo.get(USER_ID);
         order.setUserId(Integer.parseInt(orderInfo.get(USER_ID))); // TODO: 5/17/2022 добавить Имя Фамилию ?
         order.setOrderStatus(OrderStatus.valueOf(orderInfo.get(STATUS)));
         order.setDateOpen(LocalDateTime.parse(orderInfo.get(DATE_OPEN)));

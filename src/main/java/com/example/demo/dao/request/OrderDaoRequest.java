@@ -8,6 +8,6 @@ public enum OrderDaoRequest {
     public static final String ADD_ORDER_PRODUCT = """
             INSERT INTO order_products(order_id, product_id, quantity, volume)
             VALUES(?,?,?,?)""";
-    public static final String GET_LAST_ORDER = """
-           SELECT * FROM orders ORDER BY order_id DESC LIMIT 1""";
+    public static final String GET_ORDER_ID_BY_USER_ID = """
+           SELECT order_id FROM orders WHERE user_id = ?""";
 }

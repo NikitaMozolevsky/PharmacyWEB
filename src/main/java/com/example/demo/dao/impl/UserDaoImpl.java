@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import static com.example.demo.command.constant.OrderAttribute.ORDER_ID;
 import static com.example.demo.command.constant.UserAttribute.*;
 import static com.example.demo.dao.request.UserDaoRequest.*;
 

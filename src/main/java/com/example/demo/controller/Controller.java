@@ -18,6 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "controller", urlPatterns = {"/controller", "*.do"})
 public class Controller extends HttpServlet {
@@ -57,6 +58,9 @@ public class Controller extends HttpServlet {
                     response.sendRedirect(router.getPage());
                 }
             }
+        }
+        catch (SQLException e) {
+            logger.log(Level.ERROR, e.getMessage());
         }
         catch (CommandException e) {
             logger.log(Level.ERROR, "incorrect command");

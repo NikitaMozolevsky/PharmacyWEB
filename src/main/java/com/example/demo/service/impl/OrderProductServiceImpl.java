@@ -9,6 +9,7 @@ import com.example.demo.exception.DaoException;
 import com.example.demo.exception.ServiceException;
 import com.example.demo.service.OrderProductService;
 import com.example.demo.util.PasswordEncryptor;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public class OrderProductServiceImpl implements OrderProductService {
     public boolean addOrderProductService(Map<String, String> orderProductInfo) throws ServiceException {
         OrderProduct orderProduct = new OrderProduct();//for example
         orderProduct.setProductId(Integer.parseInt(orderProductInfo.get(PRODUCT_ID))); // TODO: 5/17/2022 добавить Имя Фамилию ?
-        /*orderProduct.setOrderId(Integer.parseInt(orderProductInfo.get(ORDER_ID)));*/ // TODO: 5/17/2022 добавить Имя Фамилию ?
+        orderProduct.setUserId(Integer.parseInt(orderProductInfo.get(USER_ID))); // TODO: 5/17/2022 добавить Имя Фамилию ?
         orderProduct.setQuantity(Integer.parseInt(orderProductInfo.get(QUANTITY)));
         orderProduct.setVolume(orderProductInfo.get(VOLUME));
 

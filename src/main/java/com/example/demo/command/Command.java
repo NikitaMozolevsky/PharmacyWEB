@@ -5,7 +5,9 @@ import com.example.demo.exception.DaoException;
 import com.example.demo.exception.ServiceException;
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.sql.SQLException;
+
 public interface Command {
-       Router execute(HttpServletRequest request) throws CommandException, DaoException, ServiceException; // TODO: 13.04.2022 return Router, inside
+       Router execute(HttpServletRequest request) throws CommandException, DaoException, ServiceException, SQLException; // TODO: 13.04.2022 return Router, inside
        default void refresh(){}
 }
