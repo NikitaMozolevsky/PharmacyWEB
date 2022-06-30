@@ -19,4 +19,7 @@ public enum ProductDaoRequest {
             SELECT product_id, product_name, details, price, type,
              volume, photo FROM products WHERE product_name = ?
             """;
+    public static final String GET_PRODUCT_PRICE_BY_ID = """
+            SELECT price FROM products WHERE product_id = ?
+            """;
 }

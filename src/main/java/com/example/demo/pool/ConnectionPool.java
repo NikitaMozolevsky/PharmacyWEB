@@ -28,7 +28,6 @@ public class ConnectionPool {
     public static final String DATABASE_PROPERTIES = "database.properties";
     private BlockingQueue<ProxyConnection> freeConnections = new LinkedBlockingQueue<>(CONNECTION_CAPACITY);
     private BlockingQueue<ProxyConnection> usedConnections = new LinkedBlockingQueue<>(CONNECTION_CAPACITY);
-    Driver driver;
 
     //try (InputStream inputStream = ConnectionPool.class.getClassLoader()
     //                .getResourceAsStream("database.properties")) {
@@ -42,7 +41,8 @@ public class ConnectionPool {
                 .getResourceAsStream(DATABASE_PROPERTIES)) {
             prop.load(inputStream);
         } catch (IOException e) {
-            logger.log(Level.ERROR, e);
+            logger.log(Level.ERROR, e.getMessage());
+            throw new ExceptionInInitializerError();
         }
         /*String driverClassName = prop.getProperty("db.driver", "com.mysql.cj.jdbc.Driver");*/
         try {
@@ -58,7 +58,8 @@ public class ConnectionPool {
                 ProxyConnection proxyConnection = new ProxyConnection(connection);
                 freeConnections.add(proxyConnection);
             } catch (SQLException e) {
-                throw new ExceptionInInitializerError(e.getMessage());
+                logger.log(Level.ERROR, e.getMessage());
+                throw new ExceptionInInitializerError();
             }
         }
     }
@@ -67,8 +68,11 @@ public class ConnectionPool {
         if (!isCreate.get()) {
             // TODO: 5/11/2022 check null 
             reentrantLock.lock();
-            connectionPool = new ConnectionPool();
-            isCreate.set(true);
+            if (connectionPool==null) {
+                connectionPool = new ConnectionPool();
+                isCreate.set(true);
+                logger.log(Level.INFO, "connection pool created");
+            }
             reentrantLock.unlock();
         }
         return connectionPool;
@@ -81,6 +85,7 @@ public class ConnectionPool {
     public Connection getConnection() { // TODO: 18.04.2022 Proxy connection
         ProxyConnection connection = null;
         try {
+            logger.log(Level.INFO, "freeConnections.size() == {}" ,freeConnections.size());
             connection = freeConnections.take();
             usedConnections.put(connection);
         } catch (InterruptedException e) {
@@ -90,21 +95,16 @@ public class ConnectionPool {
     }
 
     public void releaseConnection(Connection connection) {
-        if (connection.getClass() != ProxyConnection.class) {
+        if (connection.getClass() == ProxyConnection.class) {
+
+            usedConnections.remove((ProxyConnection) connection);
+            logger.log(Level.INFO, "release proxy connection {}", freeConnections.size());
             try {
-                logger.log(Level.ERROR, "ConnectionException");
-                throw new ConnectionException();
-            } catch (ConnectionException e) {
-                logger.log(Level.ERROR, e);
+                freeConnections.put((ProxyConnection) connection);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                logger.log(Level.ERROR, "put connection to freeConnection is failed");
             }
-        }
-        // TODO: 21.04.2022 check it is Proxy Connection
-        usedConnections.remove((ProxyConnection) connection);
-        try {
-            freeConnections.put((ProxyConnection) connection);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            logger.log(Level.ERROR, "put connection to freeConnection is failed");
         }
     }
 
@@ -119,7 +119,7 @@ public class ConnectionPool {
     }
 
     public void deregisterDriver() {
-        DriverManager.getDrivers().asIterator().forEachRemaining(driver1 -> {
+        DriverManager.getDrivers().asIterator().forEachRemaining(driver -> {
             try {
                 DriverManager.deregisterDriver(driver);
             } catch (SQLException e) {

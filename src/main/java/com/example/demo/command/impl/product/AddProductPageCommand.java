@@ -1,7 +1,7 @@
 package com.example.demo.command.impl.product;
 
 import com.example.demo.command.Command;
-import com.example.demo.command.constant.PagePath;
+import com.example.demo.command.attribute.PagePath;
 import com.example.demo.command.Router;
 import com.example.demo.exception.CommandException;
 import jakarta.servlet.http.HttpServletRequest;

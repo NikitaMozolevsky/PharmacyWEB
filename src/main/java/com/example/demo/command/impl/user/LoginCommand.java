@@ -1,11 +1,12 @@
 package com.example.demo.command.impl.user;
 
 import com.example.demo.command.Command;
-import com.example.demo.command.constant.PagePath;
+import com.example.demo.command.attribute.PagePath;
 import com.example.demo.command.Router;
 import com.example.demo.dao.impl.OrderDaoImpl;
 import com.example.demo.entity.user.User;
 import com.example.demo.exception.CommandException;
+import com.example.demo.exception.DaoException;
 import com.example.demo.exception.ServiceException;
 import com.example.demo.service.UserService;
 import com.example.demo.service.impl.UserServiceImpl;
@@ -15,21 +16,20 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Optional;
 
-import static com.example.demo.command.constant.DefaultAttribute.LOGIN_MSG;
-import static com.example.demo.command.constant.OrderAttribute.ORDER_EXIST;
-import static com.example.demo.command.constant.PagePath.INDEX;
-import static com.example.demo.command.constant.UserAttribute.*;
+import static com.example.demo.command.attribute.DefaultAttribute.LOGIN_MSG;
+import static com.example.demo.command.attribute.OrderAttribute.ORDER_EXIST;
+import static com.example.demo.command.attribute.PagePath.INDEX;
+import static com.example.demo.command.attribute.UserAttribute.*;
 
 public class LoginCommand implements Command {
 
     static Logger logger = LogManager.getLogger();
 
     @Override
-    public Router execute(HttpServletRequest request) throws CommandException, SQLException {
+    public Router execute(HttpServletRequest request) throws CommandException {
 
         Router router = new Router();
         Optional<User> optionalUser = Optional.empty();
@@ -50,7 +50,8 @@ public class LoginCommand implements Command {
                 session.setAttribute(LOGIN, login);
                 session.setAttribute(USER_NAME, userName);
                 session.setAttribute(USER_ID, userId);
-                session.setAttribute(ORDER_EXIST, orderDao.isOrderForUserAlreadyExist(userId));
+                boolean orderForUserNotExist = orderDao.isOrderForUserIsNotExist(userId);
+                session.setAttribute(ORDER_EXIST, orderForUserNotExist);
                 /*session.setAttribute(PASSWORD, password);*/
                 /*session.setAttribute(ACCESS_LEVEL, accessLevel);*/
                 Enumeration<String> s = session.getAttributeNames();//access level access
@@ -63,6 +64,8 @@ public class LoginCommand implements Command {
             /*session.setAttribute(CURRENT_PAGE, page);*/
         } catch (ServiceException e) {
             throw new CommandException("Command exception", e); // TODO: 18.04.2022
+        } catch (DaoException e) {
+            throw new CommandException();
         }
         return router; // TODO: 01.04.2022 Validation (in UserServiceImpl), implement Router
     }

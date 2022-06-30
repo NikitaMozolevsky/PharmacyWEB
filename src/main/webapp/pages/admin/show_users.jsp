@@ -23,13 +23,13 @@
             ${elem}
     </p>
 </c:forEach>--%>
-<form action="controller">
     <table border="1">
         <thead>
         <tr>
             <th>User ID</th>
             <th>User name</th>
             <th>Login</th>
+            <%--<th>Password</th>--%>
             <th>email</th>
             <th>Phone</th>
             <th>Money amount</th>
@@ -38,6 +38,7 @@
         </thead>
         <tbody>
         <c:forEach var="users" items="${user}">
+        <form action="controller">
             <tr>
                 <td>${users.userId}//
                     <input type="hidden" name="user_id" value=${users.userId}></td>
@@ -45,8 +46,8 @@
                     <input type="hidden" name="user_name" value=${users.userName}></td>
                 <td>${users.login}
                     <input type="hidden" name="login" value=${users.login}></td>
-                <td>${users.password}
-                    <input type="hidden" name="password" value=${users.password}></td>
+                <%--<td>${users.password}
+                    <input type="hidden" name="password" value=${users.password}></td>--%>
                 <td>${users.email}
                     <input type="hidden" name="email" value=${users.email}></td>
                 <td>${users.phone}
@@ -58,6 +59,7 @@
                 <td><input type="hidden" name="command" value="choose_product">
                     <input type="submit" value="remained from product (for hidden)"></td>
             </tr>
+        </form>
         </c:forEach>
         <%--<tr>
             <td>123</td>
@@ -74,6 +76,5 @@
         </tr>
         </tfoot>
     </table>
-    <form/>
 </body>
 </html>

@@ -5,12 +5,11 @@ import com.example.demo.entity.user.AccessLevel;
 import com.example.demo.entity.user.User;
 import org.apache.logging.log4j.Level;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-import static com.example.demo.command.constant.UserAttribute.*;
+import static com.example.demo.command.attribute.UserAttribute.*;
 
 public class UserMapper implements Mapper<User> {
 
@@ -30,10 +29,12 @@ public class UserMapper implements Mapper<User> {
         try {
             user.setUserId(resultSet.getInt(USER_ID));
             user.setUserName(resultSet.getString(USER_NAME));
+            user.setLogin(resultSet.getString(LOGIN));
+            user.setPassword(resultSet.getString(PASSWORD));
             user.setEmail(resultSet.getString(EMAIL));
             user.setPhone(resultSet.getString(PHONE));
             user.setMoneyAmount(Double.parseDouble(resultSet.getString(MONEY_AMOUNT)));
-            /*user.setAccessLevel(AccessLevel.valueOf(resultSet.getString(ACCESS_LEVEL)));*/
+            user.setAccessLevel(AccessLevel.valueOf(resultSet.getString(ACCESS_LEVEL)));
 
             optionalUser = Optional.of(user);
         } catch (SQLException e) {

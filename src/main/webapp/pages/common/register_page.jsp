@@ -24,6 +24,8 @@
     <hr/>
     <input type="hidden" name="command" value="register">
     <input type="submit" value="Register user">
+    <br>
+    ${register_msg.toUpperCase()}
 
 </form>
 </body>

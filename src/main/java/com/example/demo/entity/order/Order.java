@@ -15,9 +15,9 @@ public class Order extends AbstractEntity {
     private Double fullCost;
     private boolean isOrderExist;
 
-    public Order(int orderId, int userId, String address,
-                 OrderStatus orderStatus, LocalDateTime dateOpen,
-                 LocalDateTime dateClose, Double fullCost) {
+    public Order(int orderId, int userId, String address, OrderStatus orderStatus,
+                 LocalDateTime dateOpen, LocalDateTime dateClose, Double fullCost,
+                 boolean isOrderExist) {
         this.orderId = orderId;
         this.userId = userId;
         this.address = address;
@@ -25,6 +25,7 @@ public class Order extends AbstractEntity {
         this.dateOpen = dateOpen;
         this.dateClose = dateClose;
         this.fullCost = fullCost;
+        this.isOrderExist = isOrderExist;
     }
 
     public Order(int orderId, boolean isOrderExist) {

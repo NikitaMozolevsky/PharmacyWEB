@@ -1,21 +1,16 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.impl.OrderProductDaoImpl;
-import com.example.demo.dao.impl.UserDaoImpl;
 import com.example.demo.entity.order_product.OrderProduct;
-import com.example.demo.entity.user.AccessLevel;
-import com.example.demo.entity.user.User;
 import com.example.demo.exception.DaoException;
 import com.example.demo.exception.ServiceException;
 import com.example.demo.service.OrderProductService;
-import com.example.demo.util.PasswordEncryptor;
-import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Map;
 
-import static com.example.demo.command.constant.OrderAttribute.ORDER_ID;
-import static com.example.demo.command.constant.ProductAttribute.*;
-import static com.example.demo.command.constant.UserAttribute.*;
+import static com.example.demo.command.attribute.OrderAttribute.ORDER_ID;
+import static com.example.demo.command.attribute.ProductAttribute.*;
+import static com.example.demo.command.attribute.UserAttribute.*;
 
 public class OrderProductServiceImpl implements OrderProductService {
 
@@ -35,9 +30,10 @@ public class OrderProductServiceImpl implements OrderProductService {
         orderProduct.setQuantity(Integer.parseInt(orderProductInfo.get(QUANTITY)));
         orderProduct.setVolume(orderProductInfo.get(VOLUME));
 
-        OrderProductDaoImpl orderProductDao = new OrderProductDaoImpl();
+        OrderProductDaoImpl orderProductDao = OrderProductDaoImpl.getInstance();
         try {
             orderProductDao.addOrderProductDao(orderProduct);
+            orderProductDao.setOrderStatusInProcess(orderProduct);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

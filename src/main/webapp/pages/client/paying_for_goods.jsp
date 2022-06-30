@@ -1,59 +1,46 @@
 <%--
   Created by IntelliJ IDEA.
   User: Nikita
-  Date: 5/11/2022
-  Time: 2:07 PM
+  Date: 6/28/2022
+  Time: 4:43 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="java.util.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
 <html>
 <head>
-    <title>Show products</title>s
+    <title>Cart</title>
 </head>
 <body>
-
-<%--<c:forEach var="elem" items="${myList}" varStatus="status">
-    <p>
-            ${elem}
-    </p>
-</c:forEach>--%>
-
+<form action="controller">
     <table border="1">
         <thead>
         <tr>
             <th>Product ID</th>
             <th>Product Name</th>
-            <th>Details</th>
-            <th>Price(10ml)</th>
-            <th>Type</th>
+            <th>Quantity</th>
+            <th>Volume</th>
+            <th>Price</th>
             <th>Photo</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="products" items="${product}">
-        <form action="controller">
+        <c:forEach var="order_product" items="${order_products}">
             <tr>
-                <td>${products.productId}
+                <td>${order_product.orderProductId}
                     <input type="hidden" name="product_id" value=${products.productId}></td>
-                <td>${products.productName}
+                <td>${order_product.productName}
                     <input type="hidden" name="product_name" value=${products.productName}></td>
-                <td>${products.details}
+                <td>${order_product.details}
                     <input type="hidden" name="details" value=${products.details}></td>
-                <td>${products.price}
+                <td>${order_product.price}
                     <input type="hidden" name="price" value=${products.price}></td>
-                <td>${products.type}
+                <td>${order_product.type}
                     <input type="hidden" name="type" value=${products.type}></td>
-                <td>${products.photo}
+                <td>${order_product.photo}
                     <input type="hidden" name="photo" value=${products.photo}></td>
-                <td>
-                    <input type="hidden" name="command" value="choose_product">
+                <td><input type="hidden" name="command" value="choose_product">
                     <input type="submit" value="Choose"></td>
             </tr>
-        </form>
         </c:forEach>
         </tbody>
         <tfoot>
@@ -63,14 +50,10 @@
         </tr>
         </tfoot>
     </table>
-
+</form>
 <form action="controller">
     <input type="hidden" name="command" value="default">
     <input type="submit" value="to main page">
-</form>
-<form action="controller">
-    <input type="hidden" name="command" value="pay_for_order">
-    <input type="submit" value="Pay for order">
 </form>
 </body>
 </html>

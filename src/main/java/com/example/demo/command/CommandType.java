@@ -1,9 +1,9 @@
 package com.example.demo.command;
 
 import com.example.demo.command.impl.order.AddOrderProductCommand;
-import com.example.demo.command.impl.order.BuyProductCommand;
-import com.example.demo.command.impl.order.ChooseProductCommand;
-import com.example.demo.command.impl.order.CreateOrderAndOrderProductCommand;
+import com.example.demo.command.impl.order.PayForOrderCommand;
+import com.example.demo.command.impl.product.ChooseProductCommand;
+import com.example.demo.command.impl.order.AddProductToCart;
 import com.example.demo.command.impl.product.*;
 import com.example.demo.command.impl.user.*;
 import com.example.demo.exception.CommandException;
@@ -24,10 +24,10 @@ public enum CommandType { // TODO: 01.04.2022 Проверить commandStr, е�
     SHOW_ALL_USERS(new ShowUserListCommand()),
     SHOW_ALL_PRODUCTS(new ShowProductListCommand()),
     ADD_ORDER_PRODUCT_TO_CART(new AddOrderProductCommand()),
-    CREATE_ORDER(new CreateOrderAndOrderProductCommand()),
+    ADD_PRODUCT_TO_CART(new AddProductToCart()),
     /*CREATE_ORDER(new AddOrderProductCommand()),*/
     CHOOSE_PRODUCT(new ChooseProductCommand()),
-    BUY_PRODUCT(new BuyProductCommand());
+    PAY_FOR_ORDER(new PayForOrderCommand());
 
 
     static Logger logger = LogManager.getLogger();

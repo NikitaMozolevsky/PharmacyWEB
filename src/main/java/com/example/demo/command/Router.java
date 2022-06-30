@@ -1,6 +1,8 @@
 package com.example.demo.command;
 
-import com.example.demo.command.constant.PagePath;
+import com.example.demo.command.attribute.PagePath;
+
+import static com.example.demo.command.attribute.PagePath.MAIN_PAGE;
 
 public class Router {
 
@@ -12,13 +14,10 @@ public class Router {
     private String page = PagePath.INDEX;
     private RouterType type = RouterType.FORWARD;
 
-    public Router() {}
-
-    public Router(String page) {
-        this.page = page;
+    public Router() {
     }
 
-    public Router(String page, String productName) {
+    public Router(String page) {
         this.page = page;
     }
 

@@ -59,16 +59,8 @@ public class Controller extends HttpServlet {
                 }
             }
         }
-        catch (SQLException e) {
-            logger.log(Level.ERROR, e.getMessage());
-        }
         catch (CommandException e) {
             logger.log(Level.ERROR, "incorrect command");
-            response.sendError(500);
-        } catch (DaoException e) {
-            logger.log(Level.ERROR, "DaoException, perhaps in showAllUsers findAll()");
-            response.sendError(500);
-        } catch (ServiceException e) {
             response.sendError(500);
         }
     }

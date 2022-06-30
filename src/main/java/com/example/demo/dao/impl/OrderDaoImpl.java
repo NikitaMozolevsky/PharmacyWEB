@@ -1,7 +1,7 @@
 package com.example.demo.dao.impl;
 
 import com.example.demo.dao.BaseDao;
-import com.example.demo.dao.request.UserDaoRequest;
+import com.example.demo.dao.request.OrderDaoRequest;
 import com.example.demo.entity.AbstractEntity;
 import com.example.demo.entity.order.Order;
 import com.example.demo.exception.DaoException;
@@ -15,12 +15,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.demo.command.constant.OrderAttribute.*;
-import static com.example.demo.command.constant.UserAttribute.USER_ID;
+import static com.example.demo.command.attribute.OrderAttribute.*;
+import static com.example.demo.command.attribute.UserAttribute.USER_ID;
 import static com.example.demo.dao.request.OrderDaoRequest.ADD_NEW_ORDER;
 import static com.example.demo.dao.request.OrderDaoRequest.GET_ORDER_ID_BY_USER_ID;
 
@@ -47,7 +46,8 @@ public class OrderDaoImpl extends BaseDao {
     public boolean addOrderDao(Order order) throws DaoException, SQLException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(ADD_NEW_ORDER);
-             PreparedStatement getOrderIdStatement = connection.prepareStatement(GET_ORDER_ID_BY_USER_ID)) {
+             PreparedStatement getOrderIdStatement = connection.prepareStatement
+                     (GET_ORDER_ID_BY_USER_ID)) {
 
             statement.setString(1, String.valueOf(order.getUserId()));
             statement.setString(2, String.valueOf(order.getOrderStatus()));
@@ -61,7 +61,7 @@ public class OrderDaoImpl extends BaseDao {
 
     }
 
-    public Optional<String> getOrderID(HttpServletRequest request) throws SQLException {
+    public Optional<String> getOrderID(HttpServletRequest request) throws DaoException {
         Optional<String> orderId = Optional.empty();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(GET_ORDER_ID_BY_USER_ID)) {
@@ -71,30 +71,50 @@ public class OrderDaoImpl extends BaseDao {
                          orderId = Optional.of(resultSet.getString(1));
                      }
                  }
+        } catch (SQLException e) {
+            throw new DaoException();
         }
         return orderId;
     }
 
-    public boolean isOrderForUserAlreadyExist(String userId) throws SQLException {
-        boolean isOrderExist = false;
-        List<String> strings = new ArrayList<>();
+    public boolean isOrderForUserIsNotExist(String userId) throws DaoException {
+        boolean orderIsNotExist = true;
+        /*List<String> strings = new ArrayList<>();*/
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement orderExistStatement = connection.prepareStatement(UserDaoRequest.GET_ORDER_ID_BY_USER_ID);
-             PreparedStatement orderStatusStatement = connection.prepareStatement(UserDaoRequest.GET_ORDER_STATUS_BY_USER_ID)) {
+             PreparedStatement orderExistStatement = connection.prepareStatement
+                     (OrderDaoRequest.GET_ORDER_ID_BY_USER_ID);
+             PreparedStatement orderStatusStatement = connection.prepareStatement
+                     (OrderDaoRequest.GET_ORDER_STATUS_BY_USER_ID)) {
             orderExistStatement.setString(1, userId);
             orderStatusStatement.setString(1, userId);
             try(ResultSet resultSet = orderExistStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    isOrderExist = resultSet.getString(1).isEmpty();
+                    Optional<String> orderIdByUserOptional = Optional.of
+                            (resultSet.getString(1));
+                    orderIsNotExist = orderIdByUserOptional.isEmpty();
                 }
             }
             try(ResultSet resultSet = orderStatusStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    isOrderExist = resultSet.getString(1).equals(CLOSED);
-                    strings.add(resultSet.getString(1));
+                    String orderStatus = resultSet.getString(1);
+                    orderIsNotExist = orderStatus.equals(CLOSED);
+                    /*strings.add(orderStatus);*/
                 }
             }
+        } catch (SQLException e) {
+            throw new DaoException();
         }
-        return isOrderExist;
+        return orderIsNotExist;
+    }
+
+    public void getOrderById(String userId) throws DaoException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement orderExistStatement = connection.prepareStatement
+                     (OrderDaoRequest.GET_ORDER_ID_BY_USER_ID)) {
+
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e.getMessage());
+            throw new DaoException();
+        }
     }
 }

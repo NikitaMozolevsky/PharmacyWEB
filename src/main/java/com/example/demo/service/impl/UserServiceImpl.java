@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 import java.util.Optional;
 
-import static com.example.demo.command.constant.UserAttribute.*;
+import static com.example.demo.command.attribute.UserAttribute.*;
 
 public class UserServiceImpl implements UserService {
     //validators here
@@ -30,8 +30,9 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public Optional<User> authenticate(String login, String password) throws ServiceException {
-        boolean loginIsCorrect = UserValidatorImpl.getInstance().loginCorrect(login);
-        boolean passwordIsCorrect = UserValidatorImpl.getInstance().passwordCorrect(password);
+        UserValidatorImpl userValidator = UserValidatorImpl.getInstance();
+        boolean loginIsCorrect = userValidator.loginCorrect(login);
+        boolean passwordIsCorrect = userValidator.passwordCorrect(password);
         // TODO: 18.04.2022 validate login, pass + шифрование (md5)
         /*if (!loginIsCorrect||!passwordIsCorrect) {
             logger.log(Level.ERROR, "incorrect format login or password");

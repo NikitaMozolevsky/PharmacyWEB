@@ -5,18 +5,26 @@ import com.example.demo.command.Router;
 import com.example.demo.dao.impl.OrderDaoImpl;
 import com.example.demo.exception.CommandException;
 import com.example.demo.exception.DaoException;
-import com.example.demo.exception.ServiceException;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
-
-import static com.example.demo.command.constant.OrderAttribute.ORDER_ID;
+import static com.example.demo.command.attribute.OrderAttribute.ORDER_ID;
 
 public class PullOrderIdToSessionCommand implements Command {
+
+    static Logger logger = LogManager.getLogger();
+
     @Override
-    public Router execute(HttpServletRequest request) throws CommandException, DaoException, ServiceException, SQLException {
+    public Router execute(HttpServletRequest request) throws CommandException {
         OrderDaoImpl orderDao = new OrderDaoImpl();
-        request.getSession().setAttribute(ORDER_ID, orderDao.getOrderID(request));
+        try {
+            request.getSession().setAttribute(ORDER_ID, orderDao.getOrderID(request));
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, e.getMessage());
+            throw new CommandException();
+        }
         return null;
     }
 }

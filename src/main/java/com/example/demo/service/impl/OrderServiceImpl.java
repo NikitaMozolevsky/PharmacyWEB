@@ -1,10 +1,8 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.dao.impl.OrderDaoImpl;
-import com.example.demo.dao.impl.OrderProductDaoImpl;
 import com.example.demo.entity.order.Order;
 import com.example.demo.entity.order.OrderStatus;
-import com.example.demo.entity.order_product.OrderProduct;
 import com.example.demo.exception.DaoException;
 import com.example.demo.exception.ServiceException;
 import com.example.demo.service.OrderService;
@@ -13,9 +11,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-import static com.example.demo.command.constant.OrderAttribute.*;
-import static com.example.demo.command.constant.ProductAttribute.*;
-import static com.example.demo.command.constant.UserAttribute.USER_ID;
+import static com.example.demo.command.attribute.OrderAttribute.*;
+import static com.example.demo.command.attribute.UserAttribute.USER_ID;
 
 public class OrderServiceImpl implements OrderService {
 

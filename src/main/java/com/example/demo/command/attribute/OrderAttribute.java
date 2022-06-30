@@ -1,7 +1,9 @@
-package com.example.demo.command.constant;
+package com.example.demo.command.attribute;
 
 public enum OrderAttribute {
     ;
+    public static final String ORDER_PRODUCT = "order_product";
+    public static final String ORDER_PRODUCTS = "order_products";
     public static final String ORDER_ID = "order_id";
     public static final String STATUS = "status";
     public static final String CREATING = "CREATING";

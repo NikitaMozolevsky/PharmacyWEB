@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.demo.command.constant.ProductAttribute.*;
+import static com.example.demo.command.attribute.ProductAttribute.*;
 
 public class AddProductCommand implements Command {
 

@@ -9,7 +9,7 @@ import com.example.demo.service.ProductService;
 
 import java.util.Map;
 
-import static com.example.demo.command.constant.ProductAttribute.*;
+import static com.example.demo.command.attribute.ProductAttribute.*;
 
 public class ProductServiceImpl implements ProductService {
 

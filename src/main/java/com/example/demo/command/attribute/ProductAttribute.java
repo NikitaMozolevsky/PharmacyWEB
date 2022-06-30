@@ -1,4 +1,4 @@
-package com.example.demo.command.constant;
+package com.example.demo.command.attribute;
 
 public enum ProductAttribute {
     ;
@@ -11,4 +11,5 @@ public enum ProductAttribute {
     public static final String VOLUME = "volume";
     public static final String QUANTITY = "quantity";
     public static final String PHOTO = "photo";
+    public static final int DIVISOR_BY_SINGLE_VALUE = 10;
 }

@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-import static com.example.demo.command.constant.ProductAttribute.*;
+import static com.example.demo.command.attribute.ProductAttribute.*;
 
 public class ProductMapper implements Mapper<Product> {
 

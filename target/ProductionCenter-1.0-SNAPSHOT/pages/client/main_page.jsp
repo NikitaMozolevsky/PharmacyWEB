@@ -40,5 +40,13 @@ ${filter_attr}
     <input type="hidden" name="command" value="show_all_products"/>
     <input type="submit" value="Show all products"/>
 </form>
+<form action="controller">
+    <input type="hidden" name="command" value="show_all_products">
+    <input type="submit" value="to main page">
+</form>
+<form action="controller">
+    <input type="hidden" name="command" value="pay_for_order">
+    <input type="submit" value="Pay for order">
+</form>
 </body>
 </html>

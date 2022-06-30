@@ -14,20 +14,19 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.demo.command.constant.OrderAttribute.*;
-import static com.example.demo.command.constant.UserAttribute.USER_ID;
+import static com.example.demo.command.attribute.OrderAttribute.*;
+import static com.example.demo.command.attribute.UserAttribute.USER_ID;
 
 public class AddOrderCommand implements Command {
 
     static Logger logger = LogManager.getLogger();
 
     @Override
-    public Router execute(HttpServletRequest request) throws CommandException, ServiceException, SQLException, DaoException {
+    public Router execute(HttpServletRequest request) throws CommandException {
         OrderServiceImpl orderService = OrderServiceImpl.getInstance();
         OrderDaoImpl orderDao = new OrderDaoImpl();
         Router router = new ShowProductListCommand().execute(request);
@@ -40,9 +39,9 @@ public class AddOrderCommand implements Command {
         try {
             orderService.addOrderService(orderInfo);
             request.getSession().setAttribute(ORDER_ID, orderDao.getOrderID(request));
-        } catch (ServiceException e) {
-            logger.log(Level.ERROR, "AddInfoToOrder ex.", e);
-            throw new ServiceException();
+        } catch (ServiceException | DaoException e) {
+            logger.log(Level.ERROR, e.getMessage());
+            throw new CommandException();
         }
         return router;
     }

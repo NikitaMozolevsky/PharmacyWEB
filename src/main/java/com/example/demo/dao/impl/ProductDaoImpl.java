@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.demo.command.constant.ProductAttribute.*;
+import static com.example.demo.command.attribute.ProductAttribute.*;
 import static com.example.demo.dao.request.ProductDaoRequest.ADD_PRODUCT_REQUEST;
 import static com.example.demo.dao.request.ProductDaoRequest.GET_ALL_PRODUCTS;
 

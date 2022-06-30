@@ -1,4 +1,4 @@
-package com.example.demo.command.constant;
+package com.example.demo.command.attribute;
 
 public enum UserAttribute {
     ;

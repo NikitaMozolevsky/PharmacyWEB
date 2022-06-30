@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static com.example.demo.command.attribute.PagePath.MAIN_PAGE;
+
 public class DefaultCommand implements Command {
 
     static Logger logger = LogManager.getLogger();
@@ -13,6 +15,7 @@ public class DefaultCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) {
         Router router = new Router();
-        return router; //for example
+        router.setPage(MAIN_PAGE); //for example
+        return router;
     }
 }

@@ -12,8 +12,10 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.demo.command.constant.PagePath.INDEX;
-import static com.example.demo.command.constant.UserAttribute.*;
+import static com.example.demo.command.attribute.DefaultAttribute.LOGIN_MSG;
+import static com.example.demo.command.attribute.DefaultAttribute.REGISTER_MSG;
+import static com.example.demo.command.attribute.PagePath.INDEX;
+import static com.example.demo.command.attribute.UserAttribute.*;
 
 public class RegistrationCommand implements Command {
 
@@ -38,6 +40,7 @@ public class RegistrationCommand implements Command {
             logger.log(Level.INFO, "user was registered successful");
             router.setPage(INDEX);
         } catch (ServiceException e) {
+            request.setAttribute(REGISTER_MSG, "incorrect register data");
             logger.log(Level.ERROR, "user register error", e);
         }
         return router;

@@ -8,6 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
 public interface Command {
-       Router execute(HttpServletRequest request) throws CommandException, DaoException, ServiceException, SQLException; // TODO: 13.04.2022 return Router, inside
+       Router execute(HttpServletRequest request) throws CommandException; // TODO: 13.04.2022 return Router, inside
        default void refresh(){}
 }
