@@ -1,8 +1,8 @@
-2022-04-25 19:18:30 [main] INFO  com.example.demo.example.Example - qwertyu
-2022-04-25 19:18:43 [main] INFO  com.example.demo.example.Example - qwertyu
-2022-04-25 19:18:56 [main] INFO  com.example.demo.example.Example - qwertyu
-2022-04-25 19:21:20 [main] INFO  com.example.demo.example.Example - qwertyu
-2022-04-26 08:44:53 [main] INFO  com.example.demo.example.Example - qwertyu
-2022-05-31 22:22:00 [main] INFO  com.example.demo.example.Example - qwertyu
-2022-05-31 22:22:17 [main] INFO  com.example.demo.example.Example - qwertyu
-2022-06-01 15:22:16 [main] INFO  com.example.demo.example.Example - qwertyu
+2022-04-25 19:18:30 [main] INFO  Example - qwertyu
+2022-04-25 19:18:43 [main] INFO  Example - qwertyu
+2022-04-25 19:18:56 [main] INFO  Example - qwertyu
+2022-04-25 19:21:20 [main] INFO  Example - qwertyu
+2022-04-26 08:44:53 [main] INFO  Example - qwertyu
+2022-05-31 22:22:00 [main] INFO  Example - qwertyu
+2022-05-31 22:22:17 [main] INFO  Example - qwertyu
+2022-06-01 15:22:16 [main] INFO  Example - qwertyu

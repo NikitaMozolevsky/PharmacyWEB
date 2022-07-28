@@ -12,37 +12,61 @@
 </head>
 <body>
 <form action="controller">
+
     Product name: <label>
-    <input type="text" name="product_name" value="">
+    <input type="text" name="product_name" value="" required>
 </label>
     <hr/>
+
     Details: <label>
     <input type="text" name="details" value="">
 </label>
     <hr/>
-    Price: <label>
-    <input type="text" name="price" value="">
-</label>
+
+    Price per 10ml: <label>
+    <input type="number" name="price" value="" required>
+    </label>
     <hr/>
+
     Type:
     <br>
     <label>
     <input type="radio" name="type" value="ENTERAL" checked="on">
-</label>ENTERAL
+    </label>ENTERAL
     <br>
+
     <label>
     <input type="radio" name="type" value="EXTERNAL">
     </label>EXTERNAL
     <br>
+
     <label>
     <input type="radio" name="type" value="INHALATION">
     </label>INHALATION
     <br>
     <hr/>
+
     Photo: <label>
     <input type="text" name="photo" value="">
 </label>
     <hr/>
+
+    Goods quantity: <label>
+    <input type="number" name="goods_quantity" value="" required>
+</label>
+    <hr/>
+
+    Need recipe:
+    <br>
+    <label>
+        <input type="radio" name="need_prescription" value="FALSE" checked="on">
+    </label>No
+    <br>
+    <label>
+        <input type="radio" name="need_prescription" value="TRUE">
+    </label>Prescription is required
+    <hr/>
+
     <input type="hidden" name="command" value="add_product">
     <input type="submit" value="Add product">
 </form>

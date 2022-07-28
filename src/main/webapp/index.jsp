@@ -18,9 +18,9 @@
 <br/>
 <form action="controller">
     <input type="hidden" name="command" value="login"/>
-    Login: <input type="text" name="login" value=""/>
+    Login: <input type="text" name="login" value="1"/>
     <br/>
-    Password: <input type="password" name="password" value="">
+    Password: <input type="number" name="password" min="1" value="1" placeholder="password" maxlength="10" pattern="[0-9]+">
     <br/>
     <input type="submit" name="sub" value="LogIn"/>
     <br/>

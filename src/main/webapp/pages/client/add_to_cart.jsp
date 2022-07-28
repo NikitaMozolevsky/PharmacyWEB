@@ -1,13 +1,13 @@
-<%@ page import="static com.example.demo.command.attribute.OrderAttribute.ORDER_ID" %>
+<%@ page import="static by.mozolevskij.pharmacy.command.attribute.OrderAttribute.ORDER_ID" %>
 <%@ page import="java.util.Optional" %>
 <%@ page import="java.util.*" %>
-<%@ page import="com.example.demo.dao.impl.UserDaoImpl" %>
-<%@ page import="static com.example.demo.command.attribute.UserAttribute.USER_ID" %>
+<%@ page import="by.mozolevskij.pharmacy.dao.impl.UserDaoImpl" %>
+<%@ page import="static by.mozolevskij.pharmacy.command.attribute.UserAttribute.USER_ID" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="com.example.demo.dao.impl.OrderDaoImpl" %>
-<%@ page import="com.example.demo.entity.order.Order" %>
-<%@ page import="static com.example.demo.command.attribute.OrderAttribute.ORDER_EXIST" %>
-<%@ page import="static com.example.demo.command.attribute.ProductAttribute.PRICE" %>
+<%@ page import="by.mozolevskij.pharmacy.dao.impl.OrderDaoImpl" %>
+<%@ page import="by.mozolevskij.pharmacy.entity.order.Order" %>
+<%@ page import="static by.mozolevskij.pharmacy.command.attribute.OrderAttribute.ORDER_EXIST" %>
+<%@ page import="static by.mozolevskij.pharmacy.command.attribute.ProductAttribute.PRICE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %><%--
@@ -35,7 +35,7 @@
 </head>
 <body>
 <form action="controller">
-    Quantity: <input type="text" name="quantity" value="1">
+    Quantity: <input type="text" name="goods_quantity" value="1">
     <br>
     Dosage:
     <br>

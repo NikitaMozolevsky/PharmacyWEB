@@ -6,6 +6,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/pages/admin/add_user_page.jsp" value="file://$PROJECT_DIR$/src/main/webapp/pages/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/pages/admin/show_users.jsp" value="file://$PROJECT_DIR$/src/main/webapp/pages/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/pages/client/set_address.jsp" value="file://$PROJECT_DIR$/src/main/webapp/pages/client" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/pages/error/error_500.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>

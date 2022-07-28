@@ -56,8 +56,8 @@
                     <input type="hidden" name="money_amount" value=${users.moneyAmount}></td>
                 <td>${users.accessLevel}
                     <input type="hidden" name="access_level" value=${users.accessLevel}></td>
-                <td><input type="hidden" name="command" value="choose_product">
-                    <input type="submit" value="remained from product (for hidden)"></td>
+                <td><input type="hidden" name="command" value="delete_user)">
+                    <input type="submit" value="Delete user (unsupported command)"></td>
             </tr>
         </form>
         </c:forEach>
@@ -76,5 +76,9 @@
         </tr>
         </tfoot>
     </table>
+<form action="controller">
+    <input type="hidden" name="command" value="default">
+    <input type="submit" value="to main page">
+</form>
 </body>
 </html>
