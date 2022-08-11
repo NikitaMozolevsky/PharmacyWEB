@@ -6,6 +6,7 @@ import by.mozolevskij.pharmacy.exception.DaoException;
 import java.util.Optional;
 
 public interface UserDao { // TODO: 18.04.2022 scr. 3
+
     Optional<User> authenticateDao(String login, String password) throws DaoException;
-    boolean registerDao(User user, String hashPassword) throws DaoException;
+    void registerDao(User user, String hashPassword) throws DaoException;
 }

@@ -1,13 +1,16 @@
 package by.mozolevskij.pharmacy.dao.impl;
 
+import by.mozolevskij.pharmacy.dao.BaseDao;
+import by.mozolevskij.pharmacy.dao.mapper.impl.PrescriptionRequestMapper;
 import by.mozolevskij.pharmacy.dao.request.OrderDaoRequest;
+import by.mozolevskij.pharmacy.entity.AbstractEntity;
 import by.mozolevskij.pharmacy.entity.order.Order;
 import by.mozolevskij.pharmacy.entity.order.OrderStatus;
+import by.mozolevskij.pharmacy.entity.prescription_request.PrescriptionRequest;
+import by.mozolevskij.pharmacy.entity.prescription_request.PrescriptionRequestStatus;
+import by.mozolevskij.pharmacy.entity.user.User;
 import by.mozolevskij.pharmacy.exception.DaoException;
 import by.mozolevskij.pharmacy.pool.ConnectionPool;
-import by.mozolevskij.pharmacy.dao.BaseDao;
-import by.mozolevskij.pharmacy.entity.AbstractEntity;
-import by.mozolevskij.pharmacy.entity.user.User;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,6 +27,7 @@ import static by.mozolevskij.pharmacy.command.attribute.OrderAttribute.CLOSED;
 import static by.mozolevskij.pharmacy.command.attribute.ProductAttribute.INITIAL_GOODS_QUANTITY;
 import static by.mozolevskij.pharmacy.command.attribute.UserAttribute.INITIAL_MONEY_AMOUNT;
 import static by.mozolevskij.pharmacy.dao.request.OrderDaoRequest.*;
+import static by.mozolevskij.pharmacy.entity.prescription_request.PrescriptionRequestStatus.SENT;
 
 
 public class OrderDaoImpl extends BaseDao {
@@ -41,17 +45,20 @@ public class OrderDaoImpl extends BaseDao {
 
     @Override
     public boolean delete(AbstractEntity abstractEntity) throws DaoException {
-        return false;
+        throw new UnsupportedOperationException
+                ("delete is unsupported operation");
     }
 
     @Override
     public List<Order> findAll() throws DaoException {
-        return null;
+        throw new UnsupportedOperationException
+                ("find all is unsupported operation");
     }
 
     @Override
     public AbstractEntity update(AbstractEntity abstractEntity) throws DaoException {
-        return null;
+        throw new UnsupportedOperationException
+                ("update is unsupported operation");
     }
 
     public Optional<String> addOrderDao(Order order) throws DaoException {
@@ -292,12 +299,87 @@ public class OrderDaoImpl extends BaseDao {
         return orderFullCost;
     }
 
-    public void setFullCostDao(String orderId) throws DaoException {
-        Double orderFullCost = INITIAL_MONEY_AMOUNT;
+    public void requestPrescriptionDao(PrescriptionRequest prescriptionRequest)
+            throws DaoException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement setFullCostByOrderIdStatement = connection.prepareStatement
-                     (OrderDaoRequest.SET_FULL_COST_BY_ORDER_ID)) {
+             PreparedStatement addPrescriptionRequestStatement = connection.prepareStatement
+                     (ADD_PRESCRIPTION_REQUEST)) {
+            addPrescriptionRequestStatement.setInt(1,
+                    prescriptionRequest.getClientId());
+            addPrescriptionRequestStatement.setInt(2,
+                    prescriptionRequest.getDoctorId());
+            addPrescriptionRequestStatement.setString(3,
+                    String.valueOf(prescriptionRequest.getPrescriptionRequestStatus()));
+            addPrescriptionRequestStatement.setInt(4,
+                    prescriptionRequest.getProductId());
+            addPrescriptionRequestStatement.executeUpdate();
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e.getMessage());
+            throw new DaoException();
+        }
+    }
 
+    public Optional<ArrayList<PrescriptionRequest>> getRequestPrescriptionListDao(String doctorId)
+            throws DaoException {
+        PrescriptionRequestMapper prescriptionRequestMapper = new PrescriptionRequestMapper();
+        ArrayList<PrescriptionRequest> prescriptionRequestList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement getPrescriptionRequestListStatement = connection.prepareStatement
+                     (GET_PRESCRIPTION_REQUESTS_BY_DOCTOR_ID)) {
+            getPrescriptionRequestListStatement.setString(1,
+                    doctorId);
+            try (ResultSet resultSet = getPrescriptionRequestListStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Optional<PrescriptionRequest> optionalPrescriptionRequest =
+                            prescriptionRequestMapper.mapEntity(resultSet);
+                    if (optionalPrescriptionRequest.get().getPrescriptionRequestStatus() == SENT) {
+                        optionalPrescriptionRequest.ifPresent(prescriptionRequestList::add);
+                    }
+                }
+            }
+            getPrescriptionRequestListStatement.executeQuery();
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e.getMessage());
+            throw new DaoException();
+        }
+        return Optional.of(prescriptionRequestList);
+    }
+
+    public Optional<ArrayList<PrescriptionRequest>> getResponsePrescriptionListDao(String clientId)
+            throws DaoException {
+        PrescriptionRequestMapper prescriptionRequestMapper = new PrescriptionRequestMapper();
+        ArrayList<PrescriptionRequest> prescriptionRequestList = new ArrayList<>();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement getPrescriptionRequestListStatement = connection.prepareStatement
+                     (GET_PRESCRIPTION_REQUESTS_BY_CLIENT_ID)) {
+            getPrescriptionRequestListStatement.setString(1,
+                    clientId);
+            try (ResultSet resultSet = getPrescriptionRequestListStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Optional<PrescriptionRequest> optionalPrescriptionRequest =
+                            prescriptionRequestMapper.mapEntity(resultSet);
+                    optionalPrescriptionRequest.ifPresent(prescriptionRequestList::add);
+                }
+            }
+            getPrescriptionRequestListStatement.executeQuery();
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e.getMessage());
+            throw new DaoException();
+        }
+        return Optional.of(prescriptionRequestList);
+    }
+
+    public void updateRequestPrescriptionStatus
+            (PrescriptionRequestStatus prescriptionRequestStatus, int prescriptionRequestId)
+            throws DaoException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement updatePrescriptionRequestStatusStatement = connection.prepareStatement
+                     (UPDATE_PRESCRIPTION_REQUEST_STATUS_BY_ID)) {
+            updatePrescriptionRequestStatusStatement.setString
+                    (1, String.valueOf(prescriptionRequestStatus));
+            updatePrescriptionRequestStatusStatement.setString
+                    (2, String.valueOf(prescriptionRequestId));
+            updatePrescriptionRequestStatusStatement.executeUpdate();
 
         } catch (SQLException e) {
             logger.log(Level.ERROR, e.getMessage());

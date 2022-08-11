@@ -65,14 +65,14 @@ public class LoginCommand implements Command {
                 }
                 boolean orderForUserNotExist = orderDao.isOrderForUserIsNotExistDao(userId);
                 session.setAttribute(OrderAttribute.ORDER_EXIST, orderForUserNotExist);
-                router.setPage(PagePath.MAIN_PAGE);
+                router.setPage(PagePath.MAIN_PAGE_JSP);
                 Enumeration<String> sessionAttributeNames = request.getSession().getAttributeNames();
                 Enumeration<String> requestAttributeNames = request.getAttributeNames();
                 logger.log(Level.INFO, "session attributes {} \n request attributes {}",
                         sessionAttributeNames, requestAttributeNames);
             } else {
                 request.setAttribute(DefaultAttribute.LOGIN_MSG, "incorrect login or pass");
-                router.setPage(PagePath.INDEX);
+                router.setPage(PagePath.INDEX_JSP);
             }
         } catch (ServiceException | DaoException e) {
             logger.log(Level.INFO, "login exception {},", e.getMessage());

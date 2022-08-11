@@ -55,12 +55,20 @@ public class OrderProductDaoImpl extends BaseDao {
 
     @Override
     public boolean delete(AbstractEntity abstractEntity) throws DaoException {
-        return false;
+        throw new UnsupportedOperationException
+                ("delete is unsupported operation");
     }
 
     @Override
     public List<OrderProduct> findAll() throws DaoException {
-        return null;
+        throw new UnsupportedOperationException
+                ("find all is unsupported operation");
+    }
+
+    @Override
+    public AbstractEntity update(AbstractEntity abstractEntity) throws DaoException {
+        throw new UnsupportedOperationException
+                ("update is unsupported operation");
     }
 
     public List<OrderProduct> findAllByOrderIdDao(String currentOrderId) throws DaoException {
@@ -93,11 +101,6 @@ public class OrderProductDaoImpl extends BaseDao {
             throw new DaoException();
         }
         return orderProducts;
-    }
-
-    @Override
-    public AbstractEntity update(AbstractEntity abstractEntity) throws DaoException {
-        return null;
     }
 
     public Double addOrderProductDao(OrderProduct orderProduct) throws DaoException {

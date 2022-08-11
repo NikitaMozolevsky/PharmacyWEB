@@ -2,6 +2,7 @@ package by.mozolevskij.pharmacy.service.impl;
 
 import by.mozolevskij.pharmacy.command.attribute.ProductAttribute;
 import by.mozolevskij.pharmacy.entity.product.DrugType;
+import by.mozolevskij.pharmacy.entity.product.NeedPrescription;
 import by.mozolevskij.pharmacy.exception.DaoException;
 import by.mozolevskij.pharmacy.exception.ServiceException;
 import by.mozolevskij.pharmacy.service.ProductService;
@@ -37,13 +38,7 @@ public class ProductServiceImpl implements ProductService {
         product.setType(DrugType.valueOf(newProductData.get(ProductAttribute.TYPE)));
         product.setPhoto(newProductData.get(ProductAttribute.PHOTO));
         product.setQuantity(Integer.parseInt(newProductData.get(GOODS_QUANTITY)));
-        String needPrescription = newProductData.get(NEED_PRESCRIPTION);
-        if (needPrescription.equals(TRUE)) {
-            product.setNeedPrescription(true);
-        }
-        else {
-            product.setNeedPrescription(false);
-        }
+        product.setNeedPrescription(NeedPrescription.valueOf(newProductData.get(NEED_PRESCRIPTION)));
 
         ProductDaoImpl productDao = ProductDaoImpl.getInstance();
         try {

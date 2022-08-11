@@ -12,11 +12,11 @@ public class Product extends AbstractEntity {
     private String volume;
     private String photo;
     private int quantity;
-    private boolean needPrescription;
+    private NeedPrescription needPrescription;
 
     public Product(int productId, String productName, String details, double price,
                    DrugType type, String volume, String photo, int quantity,
-                   boolean needPrescription) {
+                   NeedPrescription needPrescription) {
         this.productId = productId;
         this.productName = productName;
         this.details = details;
@@ -94,11 +94,11 @@ public class Product extends AbstractEntity {
         this.quantity = quantity;
     }
 
-    public boolean isNeedPrescription() {
+    public NeedPrescription getNeedPrescription() {
         return needPrescription;
     }
 
-    public void setNeedPrescription(boolean needPrescription) {
+    public void setNeedPrescription(NeedPrescription needPrescription) {
         this.needPrescription = needPrescription;
     }
 
@@ -112,12 +112,12 @@ public class Product extends AbstractEntity {
         if (productId != product.productId) return false;
         if (Double.compare(product.price, price) != 0) return false;
         if (quantity != product.quantity) return false;
-        if (needPrescription != product.needPrescription) return false;
         if (productName != null ? !productName.equals(product.productName) : product.productName != null) return false;
         if (details != null ? !details.equals(product.details) : product.details != null) return false;
         if (type != product.type) return false;
         if (volume != null ? !volume.equals(product.volume) : product.volume != null) return false;
-        return photo != null ? photo.equals(product.photo) : product.photo == null;
+        if (photo != null ? !photo.equals(product.photo) : product.photo != null) return false;
+        return needPrescription == product.needPrescription;
     }
 
     @Override
@@ -133,7 +133,7 @@ public class Product extends AbstractEntity {
         result = 31 * result + (volume != null ? volume.hashCode() : 0);
         result = 31 * result + (photo != null ? photo.hashCode() : 0);
         result = 31 * result + quantity;
-        result = 31 * result + (needPrescription ? 1 : 0);
+        result = 31 * result + (needPrescription != null ? needPrescription.hashCode() : 0);
         return result;
     }
 }

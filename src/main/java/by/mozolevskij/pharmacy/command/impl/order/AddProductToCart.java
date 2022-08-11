@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static by.mozolevskij.pharmacy.command.attribute.OrderAttribute.ORDER_ID;
 import static by.mozolevskij.pharmacy.command.attribute.UserAttribute.USER_ID;
 
 public class AddProductToCart implements Command {
@@ -33,7 +32,7 @@ public class AddProductToCart implements Command {
             addOrderProductCommand.execute(request);
 
             logger.log(Level.INFO, "order created");
-            router.setPage(PagePath.SHOW_PRODUCTS);
+            router.setPage(PagePath.SHOW_PRODUCTS_JSP);
             return router;
         }
         catch (DaoException e) {

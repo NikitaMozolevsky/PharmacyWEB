@@ -15,6 +15,9 @@ public enum OrderAttribute {
     public static final String DATE_CLOSE = "date_close";
     public static final String FULL_PRICE = "full_price";
     public static final String FULL_COST = "full_cost";
+    public static final String GET_PRESCRIPTION_BUTTON = "Get prescription";
+    public static final String CHOOSE_BUTTON = "Choose";
+    public static final String BUTTON_NAME = "button_name";
     public static final Double EMPTY_CART_COST = 0.00;
     public static final String ADDRESS = "address";
     public static final String ORDER_EXIST = "order_exist";
@@ -26,15 +29,14 @@ public enum OrderAttribute {
     public static final String PURCHASE_COMPLETED = "purchase_completed";
     public static final String PRODUCT_WAS_ADDED = "product_was_added";
     public static final String CART_IS_EMPTY = "cart_is_empty";
-    public static final String CART_IS_EMPTY_MSG = "<script>window.alert" +
-            "('Cart is empty')</script>";
-    public static final String PURCHASE_COMPLETED_MSG = "<script>window.alert" +
-            "('Purchase completed!')</script>";
-    public static final String NOT_ENOUGH_MONEY_MSG = "<script>window.alert" +
-            "('Not enough money, top your account')</script>";
-    public static final String NOT_ENOUGH_GOODS_MSG = "<script>window.alert" +
-            "('There is no such quantity of goods in stock')</script>";
-    public static final String PRODUCT_WAS_ADDED_MSG = "<script>window.alert" +
-            "('Product was added successful')</script>";
+    public static final String RESPONSE = "response";
+    public static final String SENT = "SENT";
+    public static final String APPROVED = "APPROVED";
+    public static final String REJECTED = "REJECTED";
+    public static final String PRESCRIPTION_REQUEST_LIST = "prescription_request_list";
+    public static final String PRESCRIPTION_REQUEST_ID = "prescription_request_id";
+    public static final String PRESCRIPTION_REQUEST_LIST_EMPTY = "prescription_request_list_empty";
+    public static final String PRESCRIPTION_RESPONSE_LIST_EMPTY = "prescription_response_list_empty";
+
 
 }

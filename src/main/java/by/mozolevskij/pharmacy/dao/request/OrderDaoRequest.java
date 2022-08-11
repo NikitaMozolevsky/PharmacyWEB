@@ -14,8 +14,8 @@ public enum OrderDaoRequest {
             SELECT order_products.order_product_id, order_products.order_id, order_products.product_id,
             order_products.quantity, order_products.volume, order_products.order_product_price,
             products.product_name, products.photo FROM order_products JOIN products ON
-            order_products.product_id = products.product_id WHERE order_id = ?
-            """;
+            order_products.product_id = products.product_id WHERE order_products.order_id = ?
+            """; //order_products.order_id changed
     public static final String SET_ORDER_STATUS_IN_PROCESS = """
             UPDATE orders SET status = ? WHERE order_id = ?
             """;
@@ -68,5 +68,24 @@ public enum OrderDaoRequest {
             """;
     public static final String CLOSE_ORDER = """
             UPDATE orders SET address = ?, status = ?, date_close = ? WHERE order_id = ?
+            """;
+    public static final String ADD_PRESCRIPTION_REQUEST = """
+            INSERT INTO prescription_requests(client_id, doctor_id, response, product_id)
+            VALUES(?,?,?,?)
+            """;
+    public static final String UPDATE_PRESCRIPTION_REQUEST_STATUS_BY_ID = """
+            UPDATE prescription_requests SET response = ? WHERE prescription_request_id = ?
+            """;
+    public static final String GET_PRESCRIPTION_REQUESTS_BY_DOCTOR_ID = """
+            SELECT prescription_requests.prescription_request_id, prescription_requests.client_id,
+            prescription_requests.doctor_id, prescription_requests.response, prescription_requests.product_id, products.product_name
+            FROM prescription_requests JOIN products ON prescription_requests.product_id =
+            products.product_id WHERE prescription_requests.doctor_id = ?
+            """;
+    public static final String GET_PRESCRIPTION_REQUESTS_BY_CLIENT_ID = """
+            SELECT prescription_requests.prescription_request_id, prescription_requests.client_id,
+            prescription_requests.doctor_id, prescription_requests.response, prescription_requests.product_id, products.product_name
+            FROM prescription_requests JOIN products ON prescription_requests.product_id =
+            products.product_id WHERE prescription_requests.client_id = ?
             """;
 }

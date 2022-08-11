@@ -9,6 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 public class AddProductPageCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
-        return new Router(PagePath.ADD_PRODUCT);
+        return new Router(PagePath.ADD_PRODUCT_JSP);
     }
 }

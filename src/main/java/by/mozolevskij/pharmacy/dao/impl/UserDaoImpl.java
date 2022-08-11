@@ -4,6 +4,7 @@ import by.mozolevskij.pharmacy.command.attribute.UserAttribute;
 import by.mozolevskij.pharmacy.dao.mapper.impl.UserMapper;
 import by.mozolevskij.pharmacy.dao.request.OrderDaoRequest;
 import by.mozolevskij.pharmacy.dao.request.UserDaoRequest;
+import by.mozolevskij.pharmacy.entity.user.AccessLevel;
 import by.mozolevskij.pharmacy.entity.user.User;
 import by.mozolevskij.pharmacy.exception.DaoException;
 import by.mozolevskij.pharmacy.pool.ConnectionPool;
@@ -19,7 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-import static by.mozolevskij.pharmacy.command.attribute.UserAttribute.INITIAL_MONEY_AMOUNT;
 import static by.mozolevskij.pharmacy.dao.request.OrderDaoRequest.*;
 import static by.mozolevskij.pharmacy.dao.request.UserDaoRequest.*;
 
@@ -41,6 +41,7 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
                 ("delete is unsupported operation");
     }
 
+
     @Override
     public List<Optional<User>> findAll() throws DaoException {
         Optional<User> optionalUser;
@@ -48,7 +49,7 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
         UserMapper userMapper = UserMapper.getInstance();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement
-                     (UserDaoRequest.GET_ALL_USERS_WITH_ACCESS_LEVEL);
+                     (GET_ALL_USERS_WITH_ANY_ACCESS_LEVEL);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 optionalUser = userMapper.mapEntity(resultSet);
@@ -61,13 +62,35 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
         return users;
     }
 
-    public ArrayDeque<String> findUserAccessLevel() {
-        ArrayDeque<String> accessLevels = new ArrayDeque<>();
-        return null;
-    }
-
     @Override
     public User update(User user) throws DaoException {
+        throw new UnsupportedOperationException
+                ("update is unsupported operation");
+    }
+
+    public List<Optional<User>> findAllByAccessLevel(AccessLevel accessLevel) throws DaoException {
+        Optional<User> optionalUser;
+        List<Optional<User>> users = new ArrayList<>();
+        UserMapper userMapper = UserMapper.getInstance();
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement
+                     (GET_ALL_USERS_WITH_ACCESS_LEVEL)) {
+             statement.setString(1, String.valueOf(accessLevel));
+             ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    optionalUser = userMapper.mapEntity(resultSet);
+                    users.add(optionalUser);
+                }
+
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, "SQLException in finding all products", e);
+            throw new DaoException();
+        }
+        return users;
+    }
+
+    public ArrayDeque<String> findUserAccessLevel() {
+        ArrayDeque<String> accessLevels = new ArrayDeque<>();
         return null;
     }
 
@@ -98,7 +121,7 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
         return optionalUser;
     }
 
-    public boolean registerDao(User user, String hashPassword) throws DaoException {
+    public void registerDao(User user, String hashPassword) throws DaoException {
 
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(UserDaoRequest.REGISTER_USER);
@@ -130,7 +153,6 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
             logger.log(Level.ERROR, "user was not registered", e);
             throw new DaoException();
         }
-        return true;
     }
 
     public Double showMoneyAmountDao(String userId) throws DaoException {

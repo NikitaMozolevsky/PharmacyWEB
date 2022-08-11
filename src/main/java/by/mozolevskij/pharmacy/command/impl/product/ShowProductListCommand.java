@@ -14,7 +14,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-import static by.mozolevskij.pharmacy.command.attribute.ProductAttribute.PRODUCTS;
+import static by.mozolevskij.pharmacy.command.attribute.Message.PRODUCT_LIST_EMPTY_MSG;
+import static by.mozolevskij.pharmacy.command.attribute.PagePath.MAIN_PAGE_JSP;
+import static by.mozolevskij.pharmacy.command.attribute.ProductAttribute.*;
 
 public class ShowProductListCommand implements Command {
 
@@ -25,8 +27,14 @@ public class ShowProductListCommand implements Command {
         Router router = new Router();
         try {
             List<Product> productList = ProductDaoImpl.getInstance().findAll();
-            request.setAttribute(PRODUCTS, productList);
-            router.setPage(PagePath.SHOW_PRODUCTS);
+            if (productList.size()<=INITIAL_GOODS_QUANTITY) {
+                request.setAttribute(PRODUCT_LIST_EMPTY, PRODUCT_LIST_EMPTY_MSG);
+                router.setPage(MAIN_PAGE_JSP);
+            }
+            else {
+                request.setAttribute(PRODUCTS, productList);
+                router.setPage(PagePath.SHOW_PRODUCTS_JSP);
+            }
         } catch (DaoException e) {
             logger.log(Level.ERROR, "command findAll exception", e);
             throw new CommandException();

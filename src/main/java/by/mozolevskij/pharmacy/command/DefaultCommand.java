@@ -16,7 +16,7 @@ public class DefaultCommand implements Command {
     public Router execute(HttpServletRequest request) {
         logger.log(Level.INFO, "full cost {}", request.getSession().getAttribute(FULL_COST));
         Router router = new Router();
-        router.setPage(PagePath.MAIN_PAGE); //for example
+        router.setPage(PagePath.MAIN_PAGE_JSP); //for example
         return router;
     }
 }

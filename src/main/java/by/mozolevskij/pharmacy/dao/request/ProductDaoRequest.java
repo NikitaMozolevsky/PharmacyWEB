@@ -37,6 +37,10 @@ public enum ProductDaoRequest {
             SELECT goods_quantity FROM products WHERE product_id = ?
             """;
 
+    public static final String GET_NEED_PRESCRIPTION = """
+            SELECT need_prescription FROM products WHERE product_id = ?
+            """;
+
     public static final String UPDATE_GOODS_QUANTITY = """
             UPDATE products SET goods_quantity = ? WHERE product_id = ?
             """;

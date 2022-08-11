@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static by.mozolevskij.pharmacy.command.attribute.Message.*;
 import static by.mozolevskij.pharmacy.command.attribute.OrderAttribute.*;
 import static by.mozolevskij.pharmacy.command.attribute.PagePath.*;
 import static by.mozolevskij.pharmacy.command.attribute.UserAttribute.*;
@@ -73,7 +74,7 @@ public class PayForOrderCommand implements Command {
                     orderMap.put(STATUS, CLOSED);
                     orderMap.put(DATE_CLOSE, StringTimeNow.stringTimeNow());
                     orderService.payOrderService(orderMap);
-                    router.setPage(MAIN_PAGE);
+                    router.setPage(MAIN_PAGE_JSP);
                     request.setAttribute(PURCHASE_COMPLETED, PURCHASE_COMPLETED_MSG);
                     request.getSession().setAttribute(MONEY_AMOUNT, String.valueOf(moneyAmount - fullCost));
                     request.getSession().setAttribute(FULL_COST, INITIAL_MONEY_AMOUNT);

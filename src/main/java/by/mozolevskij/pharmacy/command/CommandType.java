@@ -2,6 +2,7 @@ package by.mozolevskij.pharmacy.command;
 
 import by.mozolevskij.pharmacy.command.impl.order.*;
 import by.mozolevskij.pharmacy.command.impl.product.*;
+import by.mozolevskij.pharmacy.command.impl.order.RequestPrescriptionCommand;
 import by.mozolevskij.pharmacy.command.impl.user.*;
 import by.mozolevskij.pharmacy.exception.CommandException;
 import by.mozolevskij.pharmacy.command.impl.product.ChooseProductCommand;
@@ -25,6 +26,10 @@ public enum CommandType { // TODO: 01.04.2022 Проверить commandStr, е�
     ADD_PRODUCT_TO_CART(new AddProductToCart()),
     ADD_PRODUCT_QUANTITY_PAGE(new AddProductQuantityPageCommand()),
     ADD_PRODUCT_QUANTITY(new AddProductQuantityCommand()),
+    REQUEST_PRESCRIPTION(new RequestPrescriptionCommand()),
+    PRESCRIPTION_REQUEST_LIST_PAGE(new PrescriptionRequestListPageCommand()),
+    PRESCRIPTION_RESPONSE_LIST_PAGE(new PrescriptionResponseListPageCommand()),
+    SEND_RESPONSE(new SendResponseCommand()),
 /*
     CREATE_ORDER(new AddOrderProductCommand()),
 */

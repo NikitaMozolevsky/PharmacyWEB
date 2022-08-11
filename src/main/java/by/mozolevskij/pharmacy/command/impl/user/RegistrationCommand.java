@@ -1,6 +1,5 @@
 package by.mozolevskij.pharmacy.command.impl.user;
 
-import by.mozolevskij.pharmacy.command.attribute.DefaultAttribute;
 import by.mozolevskij.pharmacy.command.attribute.PagePath;
 import by.mozolevskij.pharmacy.entity.user.User;
 import by.mozolevskij.pharmacy.exception.CommandException;
@@ -45,7 +44,7 @@ public class RegistrationCommand implements Command {
                 userService.register(userData);
                 //}
             logger.log(Level.INFO, "user was registered successful");
-            router.setPage(PagePath.INDEX);
+            router.setPage(PagePath.INDEX_JSP);
         } catch (ServiceException e) {
             request.setAttribute(REGISTER_MSG, "incorrect register data");
             logger.log(Level.ERROR, "user register error", e);

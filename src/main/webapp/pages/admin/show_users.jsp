@@ -6,23 +6,17 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="java.util.*" %>
+<%@ page import="static by.mozolevskij.pharmacy.command.attribute.UserAttribute.USER" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<% List<String> list = Arrays.asList("foo", "bar", "waa");
-    pageContext.setAttribute("myList", list); %>
 <html>
 <head>
     <title>Show users</title>
 </head>
 <body>
 
-<%--<c:forEach var="elem" items="${myList}" varStatus="status">
-    <p>
-            ${elem}
-    </p>
-</c:forEach>--%>
     <table border="1">
         <thead>
         <tr>
@@ -56,7 +50,7 @@
                     <input type="hidden" name="money_amount" value=${users.moneyAmount}></td>
                 <td>${users.accessLevel}
                     <input type="hidden" name="access_level" value=${users.accessLevel}></td>
-                <td><input type="hidden" name="command" value="delete_user)">
+                <td><input type="hidden" name="command" value="delete_user">
                     <input type="submit" value="Delete user (unsupported command)"></td>
             </tr>
         </form>

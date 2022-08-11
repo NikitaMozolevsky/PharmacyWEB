@@ -2,6 +2,7 @@ package by.mozolevskij.pharmacy.dao.impl;
 
 import by.mozolevskij.pharmacy.command.attribute.ProductAttribute;
 import by.mozolevskij.pharmacy.entity.product.DrugType;
+import by.mozolevskij.pharmacy.entity.product.NeedPrescription;
 import by.mozolevskij.pharmacy.exception.DaoException;
 import by.mozolevskij.pharmacy.pool.ConnectionPool;
 import by.mozolevskij.pharmacy.dao.BaseDao;
@@ -43,7 +44,7 @@ public class ProductDaoImpl extends BaseDao {
             statement.setString(4, String.valueOf(productData.getType()));
             statement.setString(5, productData.getPhoto());
             statement.setInt(6, productData.getQuantity());
-            statement.setBoolean(7, productData.isNeedPrescription());
+            statement.setString(7, String.valueOf(productData.getNeedPrescription()));
 
             statement.execute();
             logger.log(Level.INFO, "product was added successful");
@@ -55,7 +56,8 @@ public class ProductDaoImpl extends BaseDao {
 
     @Override
     public boolean delete(AbstractEntity abstractEntity) throws DaoException {
-        return false;
+        throw new UnsupportedOperationException
+                ("delete is unsupported operation");
     }
 
     @Override
@@ -73,13 +75,19 @@ public class ProductDaoImpl extends BaseDao {
                 product.setType(DrugType.valueOf(resultSet.getString(TYPE)));
                 product.setPhoto(resultSet.getString(PHOTO));
                 product.setQuantity(resultSet.getInt(GOODS_QUANTITY));
-                product.setNeedPrescription(resultSet.getBoolean(NEED_PRESCRIPTION));
+                product.setNeedPrescription(NeedPrescription.valueOf(resultSet.getString(NEED_PRESCRIPTION)));
                 products.add(product);
             }
         } catch (SQLException e) {
             logger.log(Level.ERROR, "SQLException in finding all products", e);
         }
         return products;
+    }
+
+    @Override
+    public AbstractEntity update(AbstractEntity abstractEntity) throws DaoException {
+        throw new UnsupportedOperationException
+                ("update is unsupported operation");
     }
 
     public void addProductQuantityDao(Product product) throws DaoException {
@@ -105,10 +113,23 @@ public class ProductDaoImpl extends BaseDao {
         }
     }
 
+    public NeedPrescription needPrescriptionDao(String productId) throws DaoException {
+        NeedPrescription needPrescription = NeedPrescription.FALSE;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement getNeedPrescriptionStatement = connection.prepareStatement
+                     (GET_NEED_PRESCRIPTION)) {
+            getNeedPrescriptionStatement.setString(1, String.valueOf(productId));
+            try(ResultSet resultSet = getNeedPrescriptionStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    needPrescription = NeedPrescription.valueOf(resultSet.getString(1));
+                }
+            }
 
-
-    @Override
-    public AbstractEntity update(AbstractEntity abstractEntity) throws DaoException {
-        return null;
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e.getMessage());
+            throw new DaoException();
+        }
+        return needPrescription;
     }
+
 }

@@ -21,10 +21,16 @@ public enum UserDaoRequest {
             FROM users""";
     public static final String ADD_CLIENT_ACCESS_LEVEL = """
             INSERT INTO access_level(user_id, access_level) VALUES (?, ?)""";
+    public static final String GET_ALL_USERS_WITH_ANY_ACCESS_LEVEL = """
+            SELECT users.user_id, users.user_name, users.login, users.password,
+            users.email, users.phone, users.money_amount, access_level.access_level
+            FROM users JOIN access_level ON access_level.user_id = users.user_id
+            """;
     public static final String GET_ALL_USERS_WITH_ACCESS_LEVEL = """
-             SELECT users.user_id, users.user_name, users.login, users.password,
-              users.email, users.phone, users.money_amount, access_level.access_level
-               FROM users JOIN access_level ON access_level.user_id = users.user_id
+            SELECT users.user_id, users.user_name, users.login, users.password,
+            users.email, users.phone, users.money_amount, access_level.access_level
+            FROM users JOIN access_level ON access_level.user_id = users.user_id
+            WHERE access_level.access_level = ?
             """;
     public static final String GET_ALL_USERS_ACCESS_LEVELS = """
             SELECT access_level FROM access_level
