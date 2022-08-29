@@ -32,7 +32,7 @@ public class AddProductToCart implements Command {
             addOrderProductCommand.execute(request);
 
             logger.log(Level.INFO, "order created");
-            router.setPage(PagePath.SHOW_PRODUCTS_JSP);
+            router.setCurrentPage(PagePath.SHOW_PRODUCTS_JSP);
             return router;
         }
         catch (DaoException e) {

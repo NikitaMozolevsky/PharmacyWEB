@@ -37,6 +37,9 @@ public class PropertyWriter {
             prop.setProperty("serverTimezone", "UTC");
             prop.setProperty("serverSslCert", "classpath:server.crt");
             prop.setProperty("url","jdbc:mysql://localhost:3306/pharmacy");
+            prop.setProperty("spring.datasource.url","jdbc:mysql://localhost:3306" +
+                    "/conweb?sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'" +
+                    "&jdbcCompliantTruncation=false");
             prop.store(new FileWriter(file.getAbsolutePath()), null);
         } catch (IOException e) {
             logger.log(Level.ERROR, "Failed to write data base properties file.", e);

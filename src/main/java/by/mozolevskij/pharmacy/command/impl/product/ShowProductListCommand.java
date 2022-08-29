@@ -29,11 +29,11 @@ public class ShowProductListCommand implements Command {
             List<Product> productList = ProductDaoImpl.getInstance().findAll();
             if (productList.size()<=INITIAL_GOODS_QUANTITY) {
                 request.setAttribute(PRODUCT_LIST_EMPTY, PRODUCT_LIST_EMPTY_MSG);
-                router.setPage(MAIN_PAGE_JSP);
+                router.setCurrentPage(MAIN_PAGE_JSP);
             }
             else {
                 request.setAttribute(PRODUCTS, productList);
-                router.setPage(PagePath.SHOW_PRODUCTS_JSP);
+                router.setCurrentPage(PagePath.SHOW_PRODUCTS_JSP);
             }
         } catch (DaoException e) {
             logger.log(Level.ERROR, "command findAll exception", e);

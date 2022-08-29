@@ -7,15 +7,13 @@ import by.mozolevskij.pharmacy.exception.DaoException;
 import by.mozolevskij.pharmacy.pool.ConnectionPool;
 import by.mozolevskij.pharmacy.dao.BaseDao;
 import by.mozolevskij.pharmacy.entity.AbstractEntity;
+import by.mozolevskij.pharmacy.util.ImageConverter;
 import by.mozolevskij.pharmacy.util.VolumeToNumber;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +89,13 @@ public class OrderProductDaoImpl extends BaseDao {
                     orderProduct.setOrderProductPrice(Double.parseDouble(resultSet.getString
                             (ORDER_PRODUCT_PRICE)));
                     orderProduct.setProductName(resultSet.getString(PRODUCT_NAME));
-                    orderProduct.setPhoto(resultSet.getString(PHOTO));
+                    Blob blobPhoto = resultSet.getBlob(PHOTO);
+                    if (blobPhoto != null) {
+                        byte[] imageContent = blobPhoto.getBytes(1, (int) blobPhoto.length());
+                        String encodeBase64 = ImageConverter.imageToString(imageContent);
+                        //TODO scale image???
+                        orderProduct.setPhoto(encodeBase64);
+                    }
                     orderProducts.add(orderProduct);
                 }
             }

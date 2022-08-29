@@ -51,7 +51,7 @@ public class PayForOrderCommand implements Command {
             boolean notEnoughMoney = fullCost > moneyAmount;
             boolean notEnoughGoods = !insufficientProducts.get().isEmpty();
             if (notEnoughMoney || notEnoughGoods) {
-                router.setPage(SET_ADDRESS_JSP);
+                router.setCurrentPage(SET_ADDRESS_JSP);
                 if (notEnoughMoney) {
                     request.setAttribute(NOT_ENOUGH_MONEY, NOT_ENOUGH_MONEY_MSG);
                 } else {
@@ -74,7 +74,7 @@ public class PayForOrderCommand implements Command {
                     orderMap.put(STATUS, CLOSED);
                     orderMap.put(DATE_CLOSE, StringTimeNow.stringTimeNow());
                     orderService.payOrderService(orderMap);
-                    router.setPage(MAIN_PAGE_JSP);
+                    router.setCurrentPage(MAIN_PAGE_JSP);
                     request.setAttribute(PURCHASE_COMPLETED, PURCHASE_COMPLETED_MSG);
                     request.getSession().setAttribute(MONEY_AMOUNT, String.valueOf(moneyAmount - fullCost));
                     request.getSession().setAttribute(FULL_COST, INITIAL_MONEY_AMOUNT);

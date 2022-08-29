@@ -8,14 +8,14 @@ import by.mozolevskij.pharmacy.pool.ConnectionPool;
 import by.mozolevskij.pharmacy.dao.BaseDao;
 import by.mozolevskij.pharmacy.entity.AbstractEntity;
 import by.mozolevskij.pharmacy.entity.product.Product;
+import by.mozolevskij.pharmacy.util.ImageConverter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,15 +34,17 @@ public class ProductDaoImpl extends BaseDao {
         return productDao;
     }
 
-    public void registerDao(Product productData) throws DaoException {
+    public void registerDao(Product productData, byte[] photo) throws DaoException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(ADD_PRODUCT_REQUEST)) {
+
+            InputStream photoStream = new ByteArrayInputStream(photo);
 
             statement.setString(1, productData.getProductName());
             statement.setString(2, productData.getDetails());
             statement.setString(3, String.valueOf(productData.getPrice()));
             statement.setString(4, String.valueOf(productData.getType()));
-            statement.setString(5, productData.getPhoto());
+            statement.setBinaryStream(5, photoStream);
             statement.setInt(6, productData.getQuantity());
             statement.setString(7, String.valueOf(productData.getNeedPrescription()));
 
@@ -73,9 +75,15 @@ public class ProductDaoImpl extends BaseDao {
                 product.setDetails(resultSet.getString(DETAILS));
                 product.setPrice(resultSet.getDouble(PRICE));
                 product.setType(DrugType.valueOf(resultSet.getString(TYPE)));
-                product.setPhoto(resultSet.getString(PHOTO));
                 product.setQuantity(resultSet.getInt(GOODS_QUANTITY));
                 product.setNeedPrescription(NeedPrescription.valueOf(resultSet.getString(NEED_PRESCRIPTION)));
+                Blob blobPhoto = resultSet.getBlob(PHOTO);
+                if (blobPhoto != null) {
+                    byte[] imageContent = blobPhoto.getBytes(1, (int) blobPhoto.length());
+                    String encodeBase64 = ImageConverter.imageToString(imageContent);
+                    //TODO scale image???
+                    product.setPhoto(encodeBase64);
+                }
                 products.add(product);
             }
         } catch (SQLException e) {

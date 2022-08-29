@@ -20,7 +20,6 @@ import java.util.Optional;
 
 import static by.mozolevskij.pharmacy.command.attribute.PagePath.REQUEST_PRESCRIPTION_JSP;
 import static by.mozolevskij.pharmacy.command.attribute.ProductAttribute.PRODUCT_ID;
-import static by.mozolevskij.pharmacy.command.attribute.UserAttribute.DOCTOR;
 import static by.mozolevskij.pharmacy.command.attribute.UserAttribute.ROLE;
 
 public class ShowUserListCommand implements Command {
@@ -42,16 +41,16 @@ public class ShowUserListCommand implements Command {
                         (usersRole.get()));
                 userListOptional = UserDaoImpl.getInstance().findAllByAccessLevel(accessLevel.get());
                 switch (accessLevel.get()) {
-                    case CLIENT: router.setPage("not created");
+                    case CLIENT: router.setCurrentPage("not created");
                         break;
 
-                    case DOCTOR: router.setPage(REQUEST_PRESCRIPTION_JSP);
+                    case DOCTOR: router.setCurrentPage(REQUEST_PRESCRIPTION_JSP);
                         break;
                 }
             }
             else {
                 userListOptional = UserDaoImpl.getInstance().findAll();
-                router.setPage(PagePath.SHOW_USERS_JSP);
+                router.setCurrentPage(PagePath.SHOW_USERS_JSP);
             }
             for (Optional<User> optionalUser : userListOptional) {
                 optionalUser.ifPresent(userList::add);//IDEA

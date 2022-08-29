@@ -37,8 +37,8 @@ public class ChooseProductCommand implements Command {
         NeedPrescription needPrescription;
         try {
             needPrescription = ProductDaoImpl.getInstance().needPrescriptionDao(productId);
-            PrescriptionRequestStatus prescriptionRequestStatus = PrescriptionRequestStatus.SENT;
-            boolean prescriptionRequestStatusApproved = true;
+            PrescriptionRequestStatus prescriptionRequestStatus;
+            boolean prescriptionRequestStatusApproved = false;
             if (prescriptionRequestStatusString.isPresent()) {
                 prescriptionRequestStatus = PrescriptionRequestStatus
                         .valueOf(request.getParameter(RESPONSE));

@@ -32,14 +32,14 @@ public class ShowCartCommand implements Command {
             String currentOrderId = (String) request.getSession().getAttribute(OrderAttribute.ORDER_ID);
             OrderDaoImpl orderDao = OrderDaoImpl.getInstance();
             if (orderDao.getOrderStatusDao(currentOrderId) == OrderStatus.CLOSED) {
-                router.setPage(MAIN_PAGE_JSP);
+                router.setCurrentPage(MAIN_PAGE_JSP);
                 request.setAttribute(CART_IS_EMPTY, CART_IS_EMPTY_MSG);
                 return router;
             }
             List<OrderProduct> orderProductList = OrderProductDaoImpl
                     .getInstance().findAllByOrderIdDao(currentOrderId);
             request.setAttribute(ORDER_PRODUCTS, orderProductList);
-            router.setPage(SHOW_CART_JSP);
+            router.setCurrentPage(SHOW_CART_JSP);
             logger.log(Level.INFO, "full cost {}", request.getSession().getAttribute(FULL_COST));
         } catch (DaoException e) {
             logger.log(Level.ERROR, "command findAll exception", e);

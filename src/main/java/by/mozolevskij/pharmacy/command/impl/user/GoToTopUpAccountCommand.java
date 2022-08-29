@@ -17,7 +17,7 @@ public class GoToTopUpAccountCommand implements Command {
     public Router execute(HttpServletRequest request) throws CommandException {
         logger.log(Level.INFO, "top up account beginning");
         Router router = new Router();
-        router.setPage(PagePath.TOP_UP_ACCOUNT_JSP);
+        router.setCurrentPage(PagePath.TOP_UP_ACCOUNT_JSP);
         logger.log(Level.INFO, "top up account ending");
         return router;
     }

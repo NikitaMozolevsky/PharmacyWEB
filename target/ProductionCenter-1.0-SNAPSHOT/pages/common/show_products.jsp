@@ -14,6 +14,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <%
     pageContext.setAttribute("product_was_added", request.getAttribute(PRODUCT_WAS_ADDED));
@@ -53,16 +54,22 @@
                     <input type="hidden" name="product_name" value=${product.productName}></td>
                 <td>${product.details}
                     <input type="hidden" name="details" value=${product.details}></td>
+                <td>${product.price}
+                    <input type="hidden" name="price" value=${product.price}></td>
                 <td>${product.type}
                     <input type="hidden" name="type" value=${product.type}></td>
                 <td>${product.quantity}
                     <input type="hidden" name="goods_quantity" value=${product.quantity}></td>
+                <td>
+                    <c:if test="${empty product.photo}">
+                        <img src="${pageContext.request.contextPath}/images/no_photo.jpg" alt="img">
+                    </c:if>
+                    <c:if test="${!empty product.photo}">
+                        <img src="data:image/jpeg;base64,${product.photo}" width="200" height="200" alt="img">
+                    </c:if>
+
                 <td>${product.needPrescription}
                     <input type="hidden" name="need_prescription" value=${product.needPrescription}></td>
-                <td>${product.photo}
-                    <input type="hidden" name="photo" value=${product.photo}></td>
-                <td>${product.price}
-                    <input type="hidden" name="price" value=${product.price}></td>
 
                 <c:if test="${product.needPrescription==condition_is_true}">
                     <td><input type="hidden" name="role" value=${doctor}>

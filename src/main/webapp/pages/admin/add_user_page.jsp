@@ -36,6 +36,9 @@
     Phone: <label>
     <input type="text" name="phone" value="">
 </label>
+    Phone: <label>
+    <input type="text" name="phone" value="">
+</label>
     <hr/>
     Access level:
     <label>

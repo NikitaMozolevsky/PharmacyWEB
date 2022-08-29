@@ -30,19 +30,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean addProduct(Map<String, String> newProductData) throws ServiceException {
+    public boolean addProduct(Map<String, String> newProductData, byte[] photo) throws ServiceException {
         Product product = new Product();//for example
         product.setProductName(newProductData.get(ProductAttribute.PRODUCT_NAME)); // TODO: 5/17/2022 добавить Имя Фамилию ?
         product.setDetails(newProductData.get(ProductAttribute.DETAILS));
         product.setPrice(Double.parseDouble(newProductData.get(ProductAttribute.PRICE)));
         product.setType(DrugType.valueOf(newProductData.get(ProductAttribute.TYPE)));
-        product.setPhoto(newProductData.get(ProductAttribute.PHOTO));
+        /*product.setPhoto(newProductData.get(ProductAttribute.PHOTO));*/
         product.setQuantity(Integer.parseInt(newProductData.get(GOODS_QUANTITY)));
         product.setNeedPrescription(NeedPrescription.valueOf(newProductData.get(NEED_PRESCRIPTION)));
 
         ProductDaoImpl productDao = ProductDaoImpl.getInstance();
         try {
-            productDao.registerDao(product);
+            productDao.registerDao(product, photo);
         }
         catch (DaoException e) {
             logger.log(Level.ERROR, e.getMessage());
@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean addProductToCart(Map<String, String> orderProductInfo) throws ServiceException {
+    public boolean addProductToCart(Map<String, String> orderProductInfo, byte[] photo) throws ServiceException {
         Product product = new Product();//for example
         product.setProductName(orderProductInfo.get(ProductAttribute.PRODUCT_NAME)); // TODO: 5/17/2022 добавить Имя Фамилию ?
         product.setDetails(orderProductInfo.get(ProductAttribute.DETAILS));
@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
 
         ProductDaoImpl productDao = ProductDaoImpl.getInstance();
         try {
-            productDao.registerDao(product);
+            productDao.registerDao(product, photo);
         } catch (DaoException e) {
             try {
                 throw new ServiceException(e);

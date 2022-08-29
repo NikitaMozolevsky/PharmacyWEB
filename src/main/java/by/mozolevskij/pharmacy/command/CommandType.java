@@ -29,10 +29,6 @@ public enum CommandType { // TODO: 01.04.2022 Проверить commandStr, е�
     REQUEST_PRESCRIPTION(new RequestPrescriptionCommand()),
     PRESCRIPTION_REQUEST_LIST_PAGE(new PrescriptionRequestListPageCommand()),
     PRESCRIPTION_RESPONSE_LIST_PAGE(new PrescriptionResponseListPageCommand()),
-    SEND_RESPONSE(new SendResponseCommand()),
-/*
-    CREATE_ORDER(new AddOrderProductCommand()),
-*/
     CHOOSE_PRODUCT(new ChooseProductCommand()),
     SHOW_CART(new ShowCartCommand()),
     PAY_FOR_ORDER(new PayForOrderCommand()),

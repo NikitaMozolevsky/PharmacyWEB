@@ -9,38 +9,38 @@ public class Router {
         REDIRECT,
     }
 
-    private String page = PagePath.INDEX_JSP;
-    private RouterType type = RouterType.FORWARD;
+    private String currentPage = PagePath.INDEX_JSP;
+    private RouterType currentRouterType = RouterType.FORWARD;
 
     public Router() {
     }
 
-    public Router(String page) {
-        this.page = page;
+    public Router(String currentPage, RouterType currentRouterType) {
+        this.currentRouterType = currentRouterType;
+        this.currentPage = currentPage;
     }
 
-    public Router(String page, RouterType type) {
-        this.page = page;
-        this.type = type;
+    public Router(String currentPage) {
+        this.currentPage = currentPage;
     }
 
-    public String getPage() {
-        return page;
+    public Router(RouterType currentRouterType) {
+        this.currentRouterType = currentRouterType;
     }
 
     public RouterType getCurrentRouterType() {
-        return type;
+        return currentRouterType;
     }
 
     public void setRouterTypeRedirect() {
-        type = RouterType.REDIRECT;
+        this.currentRouterType = RouterType.REDIRECT;
     }
 
-    public void setPage(String page) {
-        this.page = page;
+    public String getCurrentPage() {
+        return currentPage;
     }
 
-    public void setRedirect(RouterType type) {
-        this.type = RouterType.REDIRECT;
+    public void setCurrentPage(String currentPage) {
+        this.currentPage = currentPage;
     }
 }

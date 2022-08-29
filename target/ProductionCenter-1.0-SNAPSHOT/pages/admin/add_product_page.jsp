@@ -11,7 +11,7 @@
     <title>Add product page</title>
 </head>
 <body>
-<form action="controller">
+<form style="margin-top: 40px" action="controller" enctype="multipart/form-data" method="post">
 
     Product name: <label>
     <input type="text" name="product_name" value="" required>
@@ -47,7 +47,10 @@
     <hr/>
 
     Photo: <label>
-    <input type="text" name="photo" value="">
+    <input type="file" class="visually-hidden" name="photo"
+           id="photo"
+           size="4194304"
+           accept=".jpg, .jpeg"/>
 </label>
     <hr/>
 

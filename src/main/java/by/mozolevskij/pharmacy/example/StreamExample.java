@@ -4,7 +4,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Example {
+public class StreamExample {
     String string = "qwe";
 
     public static void main(String[] args) {
@@ -25,9 +25,9 @@ public class Example {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Example example = (Example) o;
+        StreamExample streamExample = (StreamExample) o;
 
-        return string != null ? string.equals(example.string) : example.string == null;
+        return string != null ? string.equals(streamExample.string) : streamExample.string == null;
     }
 
     @Override

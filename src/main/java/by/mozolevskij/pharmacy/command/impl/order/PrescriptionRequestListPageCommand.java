@@ -6,7 +6,6 @@ import by.mozolevskij.pharmacy.dao.impl.OrderDaoImpl;
 import by.mozolevskij.pharmacy.entity.prescription_request.PrescriptionRequest;
 import by.mozolevskij.pharmacy.exception.CommandException;
 import by.mozolevskij.pharmacy.exception.DaoException;
-import by.mozolevskij.pharmacy.service.impl.PrescriptionRequestServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -34,12 +33,12 @@ public class PrescriptionRequestListPageCommand implements Command {
                     OrderDaoImpl.getInstance().getRequestPrescriptionListDao(doctorId);
             if (!prescriptionRequestList.get().isEmpty()) {
                 request.setAttribute(PRESCRIPTION_REQUEST_LIST, prescriptionRequestList.get());
-                router.setPage(GET_PRESCRIPTION_REQUEST_LIST_JSP);
+                router.setCurrentPage(GET_PRESCRIPTION_REQUEST_LIST_JSP);
             }
             else {
                 request.setAttribute(PRESCRIPTION_REQUEST_LIST_EMPTY,
                         PRESCRIPTION_REQUEST_LIST_EMPTY_MSG);
-                router.setPage(MAIN_PAGE_JSP);
+                router.setCurrentPage(MAIN_PAGE_JSP);
             }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e.getMessage());

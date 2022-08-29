@@ -53,6 +53,7 @@ public class LoginCommand implements Command {
                 session.setAttribute(LOGIN, login);
                 session.setAttribute(USER_NAME, userName);
                 session.setAttribute(USER_ID, userId);
+                session.setAttribute(EMAIL, user.getEmail());
                 session.setAttribute(MONEY_AMOUNT, userDao.showMoneyAmountDao(userId));// TODO: 7/6/2022 changed to Integer from String
                 Optional<String> orderId = orderDao.getOrderIdByUserIdDao(userId);
                 if (orderId.isPresent()) {
@@ -65,14 +66,14 @@ public class LoginCommand implements Command {
                 }
                 boolean orderForUserNotExist = orderDao.isOrderForUserIsNotExistDao(userId);
                 session.setAttribute(OrderAttribute.ORDER_EXIST, orderForUserNotExist);
-                router.setPage(PagePath.MAIN_PAGE_JSP);
+                router.setCurrentPage(PagePath.MAIN_PAGE_JSP);
                 Enumeration<String> sessionAttributeNames = request.getSession().getAttributeNames();
                 Enumeration<String> requestAttributeNames = request.getAttributeNames();
                 logger.log(Level.INFO, "session attributes {} \n request attributes {}",
                         sessionAttributeNames, requestAttributeNames);
             } else {
                 request.setAttribute(DefaultAttribute.LOGIN_MSG, "incorrect login or pass");
-                router.setPage(PagePath.INDEX_JSP);
+                router.setCurrentPage(PagePath.INDEX_JSP);
             }
         } catch (ServiceException | DaoException e) {
             logger.log(Level.INFO, "login exception {},", e.getMessage());

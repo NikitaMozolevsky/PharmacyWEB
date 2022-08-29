@@ -34,11 +34,11 @@ public class PrescriptionResponseListPageCommand implements Command {
             if (prescriptionRequests.isEmpty()) {
                 request.setAttribute(PRESCRIPTION_REQUEST_LIST_EMPTY,
                         PRESCRIPTION_REQUEST_LIST_EMPTY_MSG);
-                router.setPage(MAIN_PAGE_JSP);
+                router.setCurrentPage(MAIN_PAGE_JSP);
             }
             else {
                 request.setAttribute(PRESCRIPTION_REQUEST_LIST, prescriptionRequests);
-                router.setPage(GET_PRESCRIPTION_RESPONSE_LIST_JSP);
+                router.setCurrentPage(GET_PRESCRIPTION_RESPONSE_LIST_JSP);
             }
         } catch (DaoException e) {
             logger.log(Level.ERROR, e.getMessage());

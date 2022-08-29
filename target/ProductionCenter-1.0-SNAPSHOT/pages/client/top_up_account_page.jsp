@@ -11,7 +11,7 @@
     <title>Top up account</title>
 </head>
 <body>
-<form action="controller">
+<form action="controller" method="post">
     Deposit the amount: <input type="text" name="set_money_amount" value="" required="required" placeholder="BYN">
     <input type="hidden" name="command" value="top_up_account">
     <input type="submit" value="Make a payment">

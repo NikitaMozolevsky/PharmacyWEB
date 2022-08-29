@@ -11,7 +11,7 @@ public class AddProductQuantityPageCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        router.setPage(SET_PRODUCT_QUANTITY_JSP);
+        router.setCurrentPage(SET_PRODUCT_QUANTITY_JSP);
         return router;
     }
 }

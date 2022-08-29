@@ -34,7 +34,7 @@
     <title>Add product to cart</title>
 </head>
 <body>
-<form action="controller">
+<form action="controller" method="post">
     Quantity: <input type="text" name="goods_quantity" value="1">
     <br>
     Dosage:

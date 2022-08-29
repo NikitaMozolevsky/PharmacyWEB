@@ -44,7 +44,7 @@ public class RegistrationCommand implements Command {
                 userService.register(userData);
                 //}
             logger.log(Level.INFO, "user was registered successful");
-            router.setPage(PagePath.INDEX_JSP);
+            router.setCurrentPage(PagePath.INDEX_JSP);
         } catch (ServiceException e) {
             request.setAttribute(REGISTER_MSG, "incorrect register data");
             logger.log(Level.ERROR, "user register error", e);

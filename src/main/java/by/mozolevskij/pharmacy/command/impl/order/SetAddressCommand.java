@@ -11,7 +11,7 @@ public class SetAddressCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request) throws CommandException {
         Router router = new Router();
-        router.setPage(SET_ADDRESS_JSP);
+        router.setCurrentPage(SET_ADDRESS_JSP);
         return router;
     }
 }

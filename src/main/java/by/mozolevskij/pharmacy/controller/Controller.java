@@ -1,5 +1,6 @@
 package by.mozolevskij.pharmacy.controller;
 
+import by.mozolevskij.pharmacy.exception.DaoException;
 import by.mozolevskij.pharmacy.pool.ConnectionPool;
 import by.mozolevskij.pharmacy.command.Command;
 import by.mozolevskij.pharmacy.command.CommandType;
@@ -7,6 +8,7 @@ import by.mozolevskij.pharmacy.command.Router;
 import by.mozolevskij.pharmacy.exception.CommandException;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +20,9 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 @WebServlet(name = "controller", urlPatterns = {"/controller", "*.do"})
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5,
+        maxRequestSize = 1024 * 1024 * 25)
 public class Controller extends HttpServlet {
 
     public static final String COMMAND = "command";
@@ -46,13 +51,13 @@ public class Controller extends HttpServlet {
             Router router = command.execute(request);
             switch (router.getCurrentRouterType()) {
                 case FORWARD -> {
-                    logger.log(Level.INFO, "RouterType - forward, to page {}", router.getPage());
-                    RequestDispatcher dispatcher = request.getRequestDispatcher(router.getPage());
+                    logger.log(Level.INFO, "RouterType - forward, to page {}", router.getCurrentPage());
+                    RequestDispatcher dispatcher = request.getRequestDispatcher(router.getCurrentPage());
                     dispatcher.forward(request, response);
                 }
                 case REDIRECT -> {
-                    logger.log(Level.INFO, "RouterType - redirect, to page {}", router.getPage());
-                    response.sendRedirect(router.getPage());
+                    logger.log(Level.INFO, "RouterType - redirect, to page {}", router.getCurrentPage());
+                    response.sendRedirect(router.getCurrentPage());
                 }
             }
         }

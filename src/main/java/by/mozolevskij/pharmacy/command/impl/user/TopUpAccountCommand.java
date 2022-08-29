@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static by.mozolevskij.pharmacy.command.attribute.PagePath.SHOW_PRODUCTS_JSP;
+
 public class TopUpAccountCommand implements Command {
 
     static Logger logger = LogManager.getLogger();
@@ -34,7 +36,10 @@ public class TopUpAccountCommand implements Command {
             request.getSession().setAttribute(UserAttribute.MONEY_AMOUNT, finallyMoneyAmount);
             logger.log(Level.INFO, "money amount in the ending {}", request.getSession()
                     .getAttribute(UserAttribute.MONEY_AMOUNT));
-            return showProductListCommand.execute(request);
+            Router router = new Router();
+            router.setCurrentPage(SHOW_PRODUCTS_JSP);
+            router.setRouterTypeRedirect();
+            return router;
         } catch (DaoException e) {
             logger.log(Level.ERROR, e.getMessage());
             throw new CommandException();

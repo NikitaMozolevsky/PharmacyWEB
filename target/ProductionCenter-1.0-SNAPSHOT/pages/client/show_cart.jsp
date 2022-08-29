@@ -52,7 +52,13 @@
                         <input type="hidden" name="volume" value=${orderProduct.volume}></td>
                     <td>${orderProduct.orderProductPrice}
                         <input type="hidden" name="order_product_price" value=${orderProduct.orderProductPrice}></td>
-                    <td>${orderProduct.photo}
+                    <td>
+                        <c:if test="${empty product.photo}">
+                        <img src="${pageContext.request.contextPath}/images/no_photo.jpg" alt="img">
+                    </c:if>
+                        <c:if test="${!empty product.photo}">
+                            <img src="data:image/jpeg;base64,${product.photo}" width="150" height="150" alt="img">
+                        </c:if>
                         <input type="hidden" name="photo" value=${orderProduct.photo}></td>
                     <td>
                         <input type="hidden" name="command" value="remove_from_cart">
