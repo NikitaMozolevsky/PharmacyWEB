@@ -46,8 +46,8 @@
         </thead>
         <tbody>
         <c:forEach var="product" items="${products}">
-        <form action="controller">
             <tr>
+            <form action="controller">
                 <td>${product.productId}
                     <input type="hidden" name="product_id" value=${product.productId}></td>
                 <td>${product.productName}
@@ -81,26 +81,26 @@
                     <td><input type="hidden" name="command" value="choose_product">
                         <input type="submit" value="Choose"></td>
                 </c:if>
-
+                </form>
+                <form action="<c:url value="/controller"/>">
+                    <input type="hidden" name="product_id" value=${product.productId}>
+                    <td><input type="hidden" name="command" value="delete_product">
+                        <input type="submit" value="Delete product"></td>
+                </form>
             </tr>
-        </form>
         </c:forEach>
         </tbody>
-        <tfoot>
-        <tr>
-            <td colspan="2">All users
-            <td/>
-        </tr>
-        </tfoot>
     </table>
+    <br>
 
-<form action="controller">
-    <input type="hidden" name="command" value="default">
-    <input type="submit" value="to main page">
-</form>
 <form action="controller">
     <input type="hidden" name="command" value="show_cart">
     <input type="submit" value="Show cart">
 </form>
+    <br/>
+    <form action="controller">
+        <input type="hidden" name="command" value="default">
+        <input type="submit" value="to main page">
+    </form>
 </body>
 </html>

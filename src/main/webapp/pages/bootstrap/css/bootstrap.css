@@ -1,0 +1,65 @@
+.form_auth_block{
+    width: 800px;
+    height: 800px;
+    margin: 0 auto;
+    background: url(https://cdn1.iconfinder.com/data/icons/flat-design-icons-set-1/256/authorisation_lock_padlock_safe_password_privacy_security-1024.png);
+    background-size: cover;
+    border-radius: 4px;
+}
+.form_auth_block_content{
+    padding-top: 20%;
+}
+.form_auth_block_head_text{
+    display: block;
+    text-align: center;
+    padding: 10px;
+    font-size: 30px;
+    font-weight: 400;
+    background: #ffffff;
+    opacity: 0.7;
+}
+.form_auth_block label{
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background: #ffffff;
+    opacity: 0.7;
+    font-weight: 400;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.form_auth_block input{
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    width: 50%;
+    height: 45px;
+    border-radius: 10px;
+    border:none;
+    outline: none;
+    font-size:24px;
+}
+input:focus {
+    color: #000000;
+    border-radius: 10px;
+    border: 2px solid #436fea;
+}
+
+.constructor {
+    color: crimson;
+}
+.form_auth_button{
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 10px;
+    border-radius: 10px;
+    height: 35px;
+    border: none;
+    cursor: pointer;
+}
+
+::-webkit-input-placeholder {color:#3f3f44; padding-left: 10px;}
+::-moz-placeholder          {color:#3f3f44; padding-left: 10px;}
+:-moz-placeholder           {color:#3f3f44; padding-left: 10px;}
+:-ms-input-placeholder      {color:#3f3f44; padding-left: 10px;}

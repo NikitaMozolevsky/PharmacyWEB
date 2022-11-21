@@ -17,7 +17,7 @@
 </head>
 <body>
 
-    <table border="1">
+    <table border="3">
         <thead>
         <tr>
             <th>User ID</th>
@@ -51,7 +51,7 @@
                 <td>${users.accessLevel}
                     <input type="hidden" name="access_level" value=${users.accessLevel}></td>
                 <td><input type="hidden" name="command" value="delete_user">
-                    <input type="submit" value="Delete user (unsupported command)"></td>
+                    <input type="submit" value="Delete user"></td>
             </tr>
         </form>
         </c:forEach>
@@ -64,12 +64,8 @@
             <td>R2name</td>
         </tr>--%>
         </tbody>
-        <tfoot>
-        <tr>
-            <td colspan="2">All users<td/>
-        </tr>
-        </tfoot>
     </table>
+    <br>
 <form action="controller">
     <input type="hidden" name="command" value="default">
     <input type="submit" value="to main page">

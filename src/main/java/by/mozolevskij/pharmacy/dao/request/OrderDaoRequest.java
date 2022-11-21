@@ -26,6 +26,10 @@ public enum OrderDaoRequest {
            SELECT order_id FROM orders WHERE user_id = ?
            """;
 
+    public static final String DELETE_FROM_ORDER_PRODUCTS_BY_ORDER_ID = """
+           DELETE FROM order_products WHERE order_id = ?;
+           """;
+
     public static final String GET_ORDER_PRODUCT_QUANTITIES_AND_ORDER_PRODUCT_IDES_BY_ORDER_ID = """
            SELECT product_id, quantity FROM order_products WHERE order_id = ?
            """;

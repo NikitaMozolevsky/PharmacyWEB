@@ -64,5 +64,10 @@
 <%--<c:if test="${not_enough_money_condition}">--%>
     ${not_enough_money}
 <%--</c:if>--%>
+<br/>
+<form action="controller">
+    <input type="hidden" name="command" value="default">
+    <input type="submit" value="to main page">
+</form>
 </body>
 </html>

@@ -2,38 +2,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style type="text/css">
+        <%@include file="pages/bootstrap/css/bootstrap.css"%>
+    </style>
+    <%--<script src="pages/bootstrap/js/bootstrap.js"></script>--%>
+    <script>
+        <%@include file="pages/bootstrap/js/bootstrap.js"%>
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="pages/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link rel = "shortcut icon" href="https://atom.io/favicon.ico"/>
     <title>JSP - Hello World</title>
 </head>
-<body>
-<div class="container">
-    <div class="row">
-        <div class="col">1</div>
-        <div class="col">2</div>
-        <div class="col">3</div>
+
+    <body>
+    <div class="form_auth_block">
+        <div class="form_auth_block_content">
+            <p class="form_auth_block_head_text">AUTHORIZATION:</p>
+            <form class="form_auth_style" action="controller">
+                <input type="hidden" name="command" value="login"/>
+                <label>Set your login:</label>
+                <input type="text" name="login" maxlength="25"/>
+                <br/>
+                <label>Set your password:</label>
+                <input type="password" id="password-input" name="password" maxlength="25">
+                <br/>
+                <input class="form_auth_button" type="submit" name="sub" value="LogIn"/>
+                <p align="center"><span class="constructor"><big>${login_msg.toUpperCase()}</big></span></p>
+            </form>
+            <form action="controller">
+                <input type="hidden" name="command" value="register_page"/>
+                <input type="submit" name="sub" value = "Register">
+            </form>
+        </div>
     </div>
-</div>
-<br/>
-<form action="controller">
-    <input type="hidden" name="command" value="login"/>
-    Login: <input type="text" name="login" value="1"/>
-    <br/>
-    Password: <input type="number" name="password" min="1" value="1" placeholder="password" maxlength="10" pattern="[0-9]+">
-    <br/>
-    <input type="submit" name="sub" value="LogIn"/>
-    <br/>
-    ${login_msg.toUpperCase()}
-    <br/>
-    ${pageContext.session.id}
-    <br/>
-    ${filter_attr}
-</form>
-<form action="controller">
-    <input type="hidden" name="command" value="register_page"/>
-    <input type="submit" name="sub" value = "Register">
-</form>
-        <script src="pages/bootstrap/js/bootstrap.js"></script>
-</body>
+    </body>
+
 </html>

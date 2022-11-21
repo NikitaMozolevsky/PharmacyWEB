@@ -41,9 +41,28 @@ public class OrderProductDaoImpl extends BaseDao {
     public boolean delete(String orderProductId) throws DaoException {
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement
-                     (REMOVE_ORDER_PRODUCT)) {
+                     (REMOVE_ORDER_PRODUCT);
+             Statement checkStatement = connection.createStatement()) {
             statement.setString(1, orderProductId);
             statement.execute();
+            ResultSet resultSet = checkStatement.executeQuery("SELECT * FROM order_products");
+            if (!resultSet.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            logger.log(Level.ERROR, e.getMessage());
+            throw new DaoException();
+        }
+        return false;
+    }
+
+    public boolean cartEmpty() throws DaoException {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             Statement checkStatement = connection.createStatement()) {
+            ResultSet resultSet = checkStatement.executeQuery("SELECT * FROM order_products");
+            if (!resultSet.next()) {
+                return true;
+            }
         } catch (SQLException e) {
             logger.log(Level.ERROR, e.getMessage());
             throw new DaoException();

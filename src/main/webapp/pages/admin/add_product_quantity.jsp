@@ -11,6 +11,8 @@
     <title>Add product quantity</title>
 </head>
 <body>
+Add product quantity:
+<br>
 <form action="controller">
     Product ID: <label>
     <input type="text" name="product_id" value="">
@@ -22,6 +24,11 @@
     <hr/>
     <input type="hidden" name="command" value="add_product_quantity">
     <input type="submit" value="Add product quantity">
+</form>
+<br/>
+<form action="controller">
+    <input type="hidden" name="command" value="default">
+    <input type="submit" value="to main page">
 </form>
 </body>
 </html>

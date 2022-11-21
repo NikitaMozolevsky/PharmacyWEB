@@ -1,12 +1,11 @@
 package by.mozolevskij.pharmacy.command.impl.order;
 
 import by.mozolevskij.pharmacy.command.Command;
+import by.mozolevskij.pharmacy.command.DefaultCommand;
 import by.mozolevskij.pharmacy.command.Router;
-import by.mozolevskij.pharmacy.dao.impl.OrderDaoImpl;
-import by.mozolevskij.pharmacy.entity.prescription_request.PrescriptionRequest;
 import by.mozolevskij.pharmacy.exception.CommandException;
+import by.mozolevskij.pharmacy.exception.DaoException;
 import by.mozolevskij.pharmacy.exception.ServiceException;
-import by.mozolevskij.pharmacy.service.impl.OrderServiceImpl;
 import by.mozolevskij.pharmacy.service.impl.PrescriptionRequestServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.Level;
@@ -18,7 +17,6 @@ import java.util.Map;
 
 import static by.mozolevskij.pharmacy.command.attribute.OrderAttribute.RESPONSE;
 import static by.mozolevskij.pharmacy.command.attribute.OrderAttribute.SENT;
-import static by.mozolevskij.pharmacy.command.attribute.PagePath.SHOW_CART_JSP;
 import static by.mozolevskij.pharmacy.command.attribute.ProductAttribute.PRODUCT_ID;
 import static by.mozolevskij.pharmacy.command.attribute.UserAttribute.*;
 
@@ -44,7 +42,7 @@ public class RequestPrescriptionCommand implements Command {
             logger.log(Level.ERROR, e.getMessage());
             throw new CommandException();
         }
+        return new DefaultCommand().execute(request);
 
-        return new ShowCartCommand().execute(request);
     }
 }

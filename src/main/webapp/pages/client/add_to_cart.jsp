@@ -62,5 +62,10 @@
     <input type="hidden" name="command" value="show_all_products">
     <input type="submit" value="All products">
 </form>
+<br/>
+<form action="controller">
+    <input type="hidden" name="command" value="default">
+    <input type="submit" value="to main page">
+</form>
 </body>
 </html>

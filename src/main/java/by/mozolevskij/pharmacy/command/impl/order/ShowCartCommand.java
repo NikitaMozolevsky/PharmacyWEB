@@ -31,7 +31,9 @@ public class ShowCartCommand implements Command {
         try {
             String currentOrderId = (String) request.getSession().getAttribute(OrderAttribute.ORDER_ID);
             OrderDaoImpl orderDao = OrderDaoImpl.getInstance();
-            if (orderDao.getOrderStatusDao(currentOrderId) == OrderStatus.CLOSED) {
+            OrderProductDaoImpl orderProductDao = OrderProductDaoImpl.getInstance();
+            if (orderDao.getOrderStatusDao(currentOrderId) == OrderStatus.CLOSED
+            || orderProductDao.cartEmpty()) {
                 router.setCurrentPage(MAIN_PAGE_JSP);
                 request.setAttribute(CART_IS_EMPTY, CART_IS_EMPTY_MSG);
                 return router;

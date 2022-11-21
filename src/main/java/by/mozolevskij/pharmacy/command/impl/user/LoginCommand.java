@@ -40,7 +40,7 @@ public class LoginCommand implements Command {
         String password = request.getParameter(PASSWORD);
         password = PasswordEncryptor.passwordEncryption(password);
         UserService userService = UserServiceImpl.getInstance();
-        UserDaoImpl userDao = new UserDaoImpl();
+        UserDaoImpl userDao = UserDaoImpl.getInstance();
         OrderDaoImpl orderDao = OrderDaoImpl.getInstance();
         /*String page;*/
         HttpSession session = request.getSession();
@@ -72,7 +72,7 @@ public class LoginCommand implements Command {
                 logger.log(Level.INFO, "session attributes {} \n request attributes {}",
                         sessionAttributeNames, requestAttributeNames);
             } else {
-                request.setAttribute(DefaultAttribute.LOGIN_MSG, "incorrect login or pass");
+                request.setAttribute(DefaultAttribute.LOGIN_MSG, "  incorrect login or pass");
                 router.setCurrentPage(PagePath.INDEX_JSP);
             }
         } catch (ServiceException | DaoException e) {

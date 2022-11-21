@@ -58,4 +58,11 @@ public enum UserDaoRequest {
     public static final String PHONE_ALREADY_EXIST_CHECK = """
             SELECT phone FROM users WHERE phone = ?
             """;
+    /*public static final String DELETE_USER_BY_ID_SQL = """
+            DELETE FROM access_level WHERE user_id = ?;
+            DELETE FROM orders WHERE user_id = ?;
+            DELETE FROM prescription_requests WHERE client_id = ?;
+            DELETE FROM prescription_requests WHERE doctor_id = ?;
+            DELETE FROM users WHERE user_id = ?;
+            """;*/
 }

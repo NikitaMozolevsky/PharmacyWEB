@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static by.mozolevskij.pharmacy.command.attribute.ProductAttribute.*;
+import static by.mozolevskij.pharmacy.dao.request.OrderDaoRequest.DELETE_FROM_ORDER_PRODUCTS_BY_ORDER_ID;
+import static by.mozolevskij.pharmacy.dao.request.OrderDaoRequest.GET_ORDER_ID_BY_USER_ID;
 import static by.mozolevskij.pharmacy.dao.request.ProductDaoRequest.*;
 
 public class ProductDaoImpl extends BaseDao {
@@ -60,6 +62,21 @@ public class ProductDaoImpl extends BaseDao {
     public boolean delete(AbstractEntity abstractEntity) throws DaoException {
         throw new UnsupportedOperationException
                 ("delete is unsupported operation");
+    }
+
+    public void deleteById(int productId) throws DaoException {
+        try(Connection connection = ConnectionPool.getInstance().getConnection();
+            Statement deleteProductStatement = connection.createStatement()) {
+            deleteProductStatement.executeUpdate
+                    ("DELETE FROM order_products WHERE product_id = " + productId);
+            deleteProductStatement.executeUpdate
+                    ("DELETE FROM prescription_requests WHERE product_id = " + productId);
+            deleteProductStatement.executeUpdate
+                    ("DELETE FROM products WHERE product_id = " + productId);
+
+        } catch (SQLException e) {
+            throw new DaoException();
+        }
     }
 
     @Override

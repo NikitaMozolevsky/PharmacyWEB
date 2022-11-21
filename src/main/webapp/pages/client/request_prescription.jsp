@@ -59,13 +59,8 @@ List of doctors:
         <td>234</td>
         <td>R2name</td>
     </tr>--%>
-    </tbody>
-    <tfoot>
-    <tr>
-        <td colspan="2">All users<td/>
-    </tr>
-    </tfoot>
 </table>
+<br/>
 <form action="controller">
     <input type="hidden" name="command" value="default">
     <input type="submit" value="to main page">

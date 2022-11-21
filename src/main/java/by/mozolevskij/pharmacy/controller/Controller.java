@@ -64,6 +64,9 @@ public class Controller extends HttpServlet {
         catch (CommandException e) {
             logger.log(Level.ERROR, "incorrect command");
             response.sendError(500);
+        } catch (DaoException e) {
+            logger.log(Level.ERROR, "DaoException from where?");
+            response.sendError(500);
         }
     }
 

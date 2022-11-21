@@ -48,6 +48,7 @@ public class RegistrationCommand implements Command {
         } catch (ServiceException e) {
             request.setAttribute(REGISTER_MSG, "incorrect register data");
             logger.log(Level.ERROR, "user register error", e);
+            router.setCurrentPage(PagePath.INDEX_JSP);
         }
         return router;
     }

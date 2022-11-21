@@ -35,7 +35,10 @@ public enum CommandType { // TODO: 01.04.2022 Проверить commandStr, е�
     GO_TO_TOP_UP_ACCOUNT(new GoToTopUpAccountCommand()),
     REMOVE_FROM_CART(new RemoveFromCartCommand()),
     SET_ADDRESS(new SetAddressCommand()),
-    TOP_UP_ACCOUNT(new TopUpAccountCommand());
+    TOP_UP_ACCOUNT(new TopUpAccountCommand()),
+    DELETE_USER(new DeleteUserCommand()),
+    SEND_RESPONSE(new SendResponseCommand()),
+    DELETE_PRODUCT(new DeleteProductCommand());
 
 
 

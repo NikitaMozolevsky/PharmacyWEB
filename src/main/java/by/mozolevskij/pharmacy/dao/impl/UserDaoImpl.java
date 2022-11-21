@@ -28,19 +28,61 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
     private static UserDaoImpl instance = new UserDaoImpl();
     static Logger logger = LogManager.getLogger();
 
-    public UserDaoImpl() {
+    private UserDaoImpl() {
     }
 
     public static UserDaoImpl getInstance() {
         return instance;
     }
 
-    @Override
-    public boolean delete(User user) throws DaoException {
-        throw new UnsupportedOperationException
-                ("delete is unsupported operation");
+    public void delete(int userId) throws DaoException {
+        String dfalbui = "DELETE FROM access_level WHERE user_id = ?";
+        String dfobui = "DELETE FROM orders WHERE user_id = ?";
+        String dfprwci = "DELETE FROM prescription_requests WHERE client_id = ?";
+        String dfprwdi = "DELETE FROM prescription_requests WHERE doctor_id = ?";
+        String dfuiwui = "DELETE FROM users WHERE user_id = ?";
+
+        int orderId = 0;
+        PreparedStatement statement;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement deleteFromOrderProductsStatement = connection.prepareStatement
+                     (DELETE_FROM_ORDER_PRODUCTS_BY_ORDER_ID);
+             PreparedStatement selectOrderIdStatement = connection.prepareStatement
+                     (GET_ORDER_ID_BY_USER_ID)) {
+            selectOrderIdStatement.setString(1, String.valueOf(userId));
+            ResultSet resultSet = selectOrderIdStatement.executeQuery();
+            while (resultSet.next()) {
+                orderId = Integer.parseInt(resultSet.getString(1));
+            }
+            resultSet.close();
+            deleteFromOrderProductsStatement.setInt(1, orderId);
+            deleteFromOrderProductsStatement.executeUpdate();
+            statement = connection.prepareStatement(dfalbui);
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+            statement = connection.prepareStatement(dfobui);
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+            statement = connection.prepareStatement(dfprwci);
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+            statement = connection.prepareStatement(dfprwdi);
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+            statement = connection.prepareStatement(dfuiwui);
+            statement.setInt(1, userId);
+            statement.executeUpdate();
+            statement.close();
+        } catch (SQLException e) {
+            throw new DaoException();
+        }
     }
 
+
+    @Override
+    public boolean delete(User user) throws DaoException {
+        return false;
+    }
 
     @Override
     public List<Optional<User>> findAll() throws DaoException {

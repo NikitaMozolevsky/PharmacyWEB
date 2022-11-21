@@ -11,9 +11,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static by.mozolevskij.pharmacy.command.CommandType.SHOW_CART;
 import static by.mozolevskij.pharmacy.command.attribute.OrderAttribute.*;
-import static by.mozolevskij.pharmacy.command.attribute.PagePath.SHOW_CART_JSP;
 
 public class RemoveFromCartCommand implements Command {
 
