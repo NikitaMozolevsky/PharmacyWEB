@@ -53,5 +53,10 @@
         Phone: ${existing_user_info.phone}
     </c:if>
 </c:if>
+<br/>
+<form action="controller">
+    <input type="hidden" name="command" value="default">
+    <input type="submit" value="to main page">
+</form>
 </body>
 </html>

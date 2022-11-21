@@ -24,5 +24,10 @@ ${filter_attr}
     <input type="hidden" name="command" value="logout"/>
     <input type="submit" value="logout"/>
 </form>
+<br/>
+<form action="controller">
+    <input type="hidden" name="command" value="default">
+    <input type="submit" value="to main page">
+</form>
 </body>
 </html>

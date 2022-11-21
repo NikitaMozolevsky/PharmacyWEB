@@ -36,11 +36,8 @@
     Phone: <label>
     <input type="text" name="phone" value="">
 </label>
-    Phone: <label>
-    <input type="text" name="phone" value="">
-</label>
     <hr/>
-    Access level:
+    Access level: <br>
     <label>
         <input type="radio" name="access_level" value="CLIENT" checked="on">
     </label>CLIENT<br/>
@@ -67,6 +64,11 @@
             Phone: ${existing_user_info.phone}
         </c:if>
     </c:if>
+</form><br/>
+<form action="controller">
+    <input type="hidden" name="command" value="default">
+    <input type="submit" value="to main page">
 </form>
+
 </body>
 </html>
